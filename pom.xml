@@ -15,10 +15,17 @@
     <packaging>jar</packaging>
 
     <dependencies>
+
+        <dependency>
+            <groupId>ywm.library</groupId>
+            <artifactId>shared</artifactId>
+        </dependency>
+
+
         <dependency>
             <groupId>com.yhb.wolf</groupId>
-            <artifactId>wolf-web</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <artifactId>cloudlet</artifactId>
         </dependency>
+
     </dependencies>
 </project>
