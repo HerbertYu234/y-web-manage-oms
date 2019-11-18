@@ -11,6 +11,6 @@ public class HomeController extends BaseController {
 
     @GetMapping(value = {"", "/"})
     public Object index() {
-        return "";
+        return "/index";
     }
 }
