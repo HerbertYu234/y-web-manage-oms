@@ -18,6 +18,17 @@
 
     <!-- Custom Theme Style -->
     <link href="/js/lib/gentelella/custom.min.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="/js/lib/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="/js/lib/bootstrap/bootstrap.bundle.min.js"></script>
+    <!-- FastClick -->
+    <script src="/js/lib/fastclick/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="/js/lib/nprogress/nprogress.js"></script>
+
+    <sitemesh:write property="head"/>
 </head>
 
 <body class="nav-md">
@@ -279,14 +290,6 @@
     </div>
 </div>
 
-<!-- jQuery -->
-<script src="/js/lib/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="/js/lib/bootstrap/bootstrap.bundle.min.js"></script>
-<!-- FastClick -->
-<script src="/js/lib/fastclick/fastclick.js"></script>
-<!-- NProgress -->
-<script src="/js/lib/nprogress/nprogress.js"></script>
 
 <!-- Custom Theme Scripts -->
 <script src="/js/lib/gentelella/custom.min.js"></script>

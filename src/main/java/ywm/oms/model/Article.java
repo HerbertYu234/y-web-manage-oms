@@ -8,9 +8,7 @@ import java.util.List;
 /**
  * Created by Herbert Yu on 2019-11-17 13:39
  */
-public class Article {
-
-    private String id;
+public class Article extends ViewModel{
 
     /**
      * 标题
@@ -52,13 +50,6 @@ public class Article {
      */
     private boolean top = false;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
