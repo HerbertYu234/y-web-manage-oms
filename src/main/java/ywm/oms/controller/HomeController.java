@@ -17,7 +17,7 @@ public class HomeController extends BaseController {
     private ArticleService articleService;
 
 
-    @GetMapping(value = {"", "/"})
+    @GetMapping(value = {"", "/","/index"})
     public String index(Model model) throws InterruptedException {
         model.addAttribute("articleNum", articleService.articleCount(null));
         model.addAttribute("articleTypeNum", ArticleType.values().length);

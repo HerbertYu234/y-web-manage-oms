@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>文章 </title>
+    <title>首页</title>
 
     <!-- bootstrap-daterangepicker -->
     <link href="/js/lib/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
@@ -42,8 +42,8 @@
                 <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
                     <div class="tile-stats">
                         <div class="icon"><i class="fa fa-check-square-o"></i></div>
-                        <div class="count">179</div>
-                        <h3>留言${articleCommentNum!0}</h3>
+                        <div class="count">${articleCommentNum!0}</div>
+                        <h3>留言</h3>
                         <p>Lorem ipsum psdea itgum rixt.</p>
                     </div>
                 </div>
