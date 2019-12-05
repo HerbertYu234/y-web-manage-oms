@@ -31,7 +31,7 @@
         <div class="clearfix"></div>
 
         <div class="row" style="display: block;">
-            <#--<div class="clearfix"></div>-->
+            <div class="clearfix"></div>
 
             <div class="col-md-12 col-sm-12  ">
                 <div class="x_panel">
@@ -58,7 +58,7 @@
                         <p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p>
 
                         <div class="table-responsive">
-                            <table class="table table-striped jambo_table bulk_action">
+                            <table id="datatable" class="table table-striped jambo_table bulk_action">
                                 <thead>
                                 <tr class="headings">
                                     <th>
