@@ -50,6 +50,10 @@
     <script src="/js/lib/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
     <script src="/js/lib/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
 
+    <!-- iCheck -->
+    <link href="/js/lib/iCheck/skins/flat/green.css" rel="stylesheet">
+    <script src="/js/lib/iCheck/icheck.min.js"></script>
+
 
     <sitemesh:write property="head"/>
 
