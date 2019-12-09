@@ -208,24 +208,29 @@ $(document).ready(function() {
 
 // iCheck
 $(document).ready(function() {
+    init_iCheck();
+});
+// /iCheck
+
+
+function init_iCheck(){
     if ($("input.flat")[0]) {
         $(document).ready(function () {
-            $('input.flat').iCheck({
+            $("body").find('input.flat').iCheck({
                 checkboxClass: 'icheckbox_flat-green',
                 radioClass: 'iradio_flat-green'
             });
         });
     }
-});
-// /iCheck
+}
 
 // Table
-$('table input').on('ifChecked', function () {
+$("body").on('ifChecked','table input', function () {
     checkState = '';
     $(this).parent().parent().parent().addClass('selected');
     countChecked();
 });
-$('table input').on('ifUnchecked', function () {
+$("body").on('ifUnchecked','table input', function () {
     checkState = '';
     $(this).parent().parent().parent().removeClass('selected');
     countChecked();
@@ -233,21 +238,21 @@ $('table input').on('ifUnchecked', function () {
 
 var checkState = '';
 
-$('.bulk_action input').on('ifChecked', function () {
+$("body").on('ifChecked','.bulk_action input', function () {
     checkState = '';
     $(this).parent().parent().parent().addClass('selected');
     countChecked();
 });
-$('.bulk_action input').on('ifUnchecked', function () {
+$("body").on('ifUnchecked','.bulk_action input', function () {
     checkState = '';
     $(this).parent().parent().parent().removeClass('selected');
     countChecked();
 });
-$('.bulk_action input#check-all').on('ifChecked', function () {
+$("body").on('ifChecked','.bulk_action input#check-all', function () {
     checkState = 'all';
     countChecked();
 });
-$('.bulk_action input#check-all').on('ifUnchecked', function () {
+$("body").on('ifUnchecked','.bulk_action input#check-all', function () {
     checkState = 'none';
     countChecked();
 });
@@ -265,7 +270,7 @@ function countChecked() {
     if (checkCount) {
         $('.column-title').hide();
         $('.bulk-actions').show();
-        $('.action-cnt').html(checkCount + ' Records Selected');
+        $('.action-cnt').html('共选中[ '+ checkCount + ' ]条记录');
     } else {
         $('.column-title').show();
         $('.bulk-actions').hide();

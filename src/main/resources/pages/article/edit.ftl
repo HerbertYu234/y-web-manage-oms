@@ -113,7 +113,7 @@
 <!-- /page content -->
 
 <script>
-    var E = window.wangEditor;
+    var E = window.wangEditor; //https://www.kancloud.cn/wangfupeng/wangeditor3/332599
     var editor = new E('#editor');
     // 通过 url 参数配置 debug 模式。url 中带有 debug 才会开启 debug 模式
     editor.customConfig.debug = location.href.indexOf('debug') > 0 ;
