@@ -120,7 +120,7 @@
         element: document.getElementById("editor"),
         spellChecker: false,
         autofocus: true,
-        autoDownloadFontAwesome: true, //true会强制下载Font Awesome，false不会下载
+        autoDownloadFontAwesome: false, //true会强制下载Font Awesome，false不会下载
         placeholder: "Type here...",
         // autosave: {
         //     enabled: true,
@@ -163,7 +163,7 @@
     $(function () {
        $("body").on("click","#publishArticle",function () {
            let content = simplemde.value();
-           // let content = simplemde.markdown(simplemde.value());
+           // let content = simplemde.markdown(simplemde.value()); markdown转换为html标签
            let $top = $("#publishForm input[name='top']");
            $top.val($top.prop('checked'));
            $("#publishForm").append(`<textarea name="content" style="display: none;">{value}</textarea>`.replace("{value}",content));
