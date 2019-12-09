@@ -28,6 +28,12 @@ public interface ArticleService {
     boolean articleRemove(@PathVariable("id") String id);
 
     /**
+     * 根据id查找
+     */
+    @GetMapping("/detail/{id}")
+    Article articleDetail(@PathVariable("id") String id);
+
+    /**
      * 文章检索
      */
     @GetMapping("/search")

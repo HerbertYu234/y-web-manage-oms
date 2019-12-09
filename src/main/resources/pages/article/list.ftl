@@ -190,7 +190,7 @@
                     <td class=" ">John Blank L</td>
                     <td class=" ">Paid</td>
                     <td class="a-right a-right ">$7.45</td>
-                    <td class=" last"><a href="#">View</a>
+                    <td class="last"><a href="${wolf.context}/article/edit?id={{article.id}}">View</a>
                     </td>
                 </tr>
                 {{/each}}
