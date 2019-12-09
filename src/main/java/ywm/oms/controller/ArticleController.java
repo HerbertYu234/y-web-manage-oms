@@ -1,5 +1,6 @@
 package ywm.oms.controller;
 
+import com.wolf.lang.helper.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,17 +37,36 @@ public class ArticleController extends BaseController {
 
     @GetMapping("/edit")
     public String edit(@RequestParam(value = "id", required = false) String id, Model model) {
-        Article article = articleService.articleDetail(id);
-        if (null != article) {
-            model.addAttribute("article", article);
+        if(Strings.isNotBlank(id)){
+            Article article = articleService.articleDetail(id);
+            if (null != article) {
+                model.addAttribute("article", article);
+            }
         }
         return "/article/edit";
+    }
+
+    @GetMapping("/edit_md")
+    public String editMd(@RequestParam(value = "id", required = false) String id, Model model) {
+        if(Strings.isNotBlank(id)){
+            Article article = articleService.articleDetail(id);
+            if (null != article) {
+                model.addAttribute("article", article);
+            }
+        }
+        return "/article/edit_md";
     }
 
 
     @PostMapping("/store")
     public String store(Article article) {
         articleService.articleSave(article);
+        return "redirect:/article/list";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id")String id){
+        articleService.articleRemove(id);
         return "redirect:/article/list";
     }
 }

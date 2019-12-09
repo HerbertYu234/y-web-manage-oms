@@ -115,7 +115,7 @@
                                     <th class="column-title">Order</th>
                                     <th class="column-title">作者</th>
                                     <th class="column-title">Status</th>
-                                    <th class="column-title">Amount</th>
+                                    <th class="column-title">是否置顶</th>
                                     <th class="column-title no-link last"><span class="nobr">操作</span>
                                     </th>
                                     <th class="bulk-actions" colspan="7">
@@ -189,8 +189,10 @@
                     <td class=" ">121000210 <i class="success fa fa-long-arrow-up"></i></td>
                     <td class=" ">John Blank L</td>
                     <td class=" ">Paid</td>
-                    <td class="a-right a-right ">$7.45</td>
-                    <td class="last"><a href="${wolf.context}/article/edit?id={{article.id}}">View</a>
+                    <td class="a-right a-right ">{{article.top?"是":"否"}}</td>
+                    <td class="last">
+                        <a href="${wolf.context}/article/{{article.editorType=='SIMPLEMDE'?'edit_md':'edit'}}?id={{article.id}}">View</a>
+                        <a href="${wolf.context}/article/delete/{{article.id}}">删除</a>
                     </td>
                 </tr>
                 {{/each}}

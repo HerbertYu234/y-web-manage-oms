@@ -1,6 +1,7 @@
 package ywm.oms.model;
 
 import ywm.library.shared.model.ArticleType;
+import ywm.library.shared.model.EidtorType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,11 @@ public class Article extends ViewModel{
      * 是否置顶
      */
     private boolean top = false;
+
+    /**
+     * 编辑器
+     */
+    private EidtorType editorType = EidtorType.WANGEDITOR;
 
 
     public String getTitle() {
@@ -113,5 +119,13 @@ public class Article extends ViewModel{
 
     public void setTop(boolean top) {
         this.top = top;
+    }
+
+    public EidtorType getEditorType() {
+        return editorType;
+    }
+
+    public void setEditorType(EidtorType editorType) {
+        this.editorType = editorType;
     }
 }
