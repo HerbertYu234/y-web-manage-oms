@@ -1,5 +1,6 @@
 package ywm.oms.model;
 
+import ywm.library.shared.model.ArticleStatus;
 import ywm.library.shared.model.ArticleType;
 import ywm.library.shared.model.EidtorType;
 
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * Created by Herbert Yu on 2019-11-17 13:39
  */
-public class Article extends ViewModel{
+public class Article extends ViewModel {
 
     /**
      * 标题
@@ -42,6 +43,16 @@ public class Article extends ViewModel{
     private List<String> tags = new ArrayList<>();
 
     /**
+     * 状态
+     */
+    private Integer status;
+
+    /**
+     * 状态描述
+     */
+    private String statusName;
+
+    /**
      * 评论
      */
     private List<String> comments = new ArrayList<>();
@@ -55,6 +66,21 @@ public class Article extends ViewModel{
      * 编辑器
      */
     private EidtorType editorType = EidtorType.WANGEDITOR;
+
+    /**
+     * 评论数
+     */
+    private long commitNum;
+
+    /**
+     * 阅读数
+     */
+    private long lookNum;
+
+    /**
+     * 喜欢/点赞 数
+     */
+    private long likeNum;
 
 
     public String getTitle() {
@@ -127,5 +153,49 @@ public class Article extends ViewModel{
 
     public void setEditorType(EidtorType editorType) {
         this.editorType = editorType;
+    }
+
+    public long getCommitNum() {
+        return commitNum;
+    }
+
+    public void setCommitNum(long commitNum) {
+        this.commitNum = commitNum;
+    }
+
+    public long getLookNum() {
+        return lookNum;
+    }
+
+    public void setLookNum(long lookNum) {
+        this.lookNum = lookNum;
+    }
+
+    public long getLikeNum() {
+        return likeNum;
+    }
+
+    public void setLikeNum(long likeNum) {
+        this.likeNum = likeNum;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+        ArticleStatus articleStatus = ArticleStatus.fromCode(status);
+        if (null != articleStatus) {
+            setStatusName(articleStatus.getDesc());
+        }
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
     }
 }

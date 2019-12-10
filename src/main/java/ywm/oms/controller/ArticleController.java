@@ -8,6 +8,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ywm.library.shared.model.ResEntity;
 import ywm.oms.model.Article;
 import ywm.oms.service.remote.ArticleService;
 import ywm.oms.service.term.ArticleSearchTerm;
@@ -30,14 +31,14 @@ public class ArticleController extends BaseController {
 
     @GetMapping("/page")
     @ResponseBody
-    public Page<Article> page(@PageableDefault(size = 10, page = 0) Pageable pageable) {
+    public ResEntity page(@PageableDefault(size = 10, page = 0) Pageable pageable) {
         Page<Article> articles = articleService.articleSearch(new ArticleSearchTerm(), pageable);
-        return articles;
+        return ResEntity.result(articles);
     }
 
     @GetMapping("/edit")
     public String edit(@RequestParam(value = "id", required = false) String id, Model model) {
-        if(Strings.isNotBlank(id)){
+        if (Strings.isNotBlank(id)) {
             Article article = articleService.articleDetail(id);
             if (null != article) {
                 model.addAttribute("article", article);
@@ -48,7 +49,7 @@ public class ArticleController extends BaseController {
 
     @GetMapping("/edit_md")
     public String editMd(@RequestParam(value = "id", required = false) String id, Model model) {
-        if(Strings.isNotBlank(id)){
+        if (Strings.isNotBlank(id)) {
             Article article = articleService.articleDetail(id);
             if (null != article) {
                 model.addAttribute("article", article);
@@ -65,8 +66,20 @@ public class ArticleController extends BaseController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable("id")String id){
+    public String delete(@PathVariable("id") String id) {
         articleService.articleRemove(id);
         return "redirect:/article/list";
+    }
+
+    @PostMapping("/delete")
+    @ResponseBody
+    public ResEntity batchDelete(@RequestParam String[] ids) {
+        return ResEntity.result(articleService.articleRemove(ids));
+    }
+
+    @ResponseBody
+    @PostMapping("/change/status/{status}")
+    public ResEntity changeStatus(@PathVariable("status") Integer status, @RequestParam String[] ids) {
+        return ResEntity.result(articleService.articleChangeStatus(status, ids));
     }
 }

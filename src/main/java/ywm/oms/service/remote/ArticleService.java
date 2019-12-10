@@ -28,6 +28,12 @@ public interface ArticleService {
     boolean articleRemove(@PathVariable("id") String id);
 
     /**
+     * 文章删除
+     */
+    @PostMapping("/remove")
+    boolean articleRemove(@RequestParam("ids") String[] ids);
+
+    /**
      * 根据id查找
      */
     @GetMapping("/detail/{id}")
@@ -44,4 +50,12 @@ public interface ArticleService {
      */
     @GetMapping("/count")
     long articleCount(@Feigns.Param ArticleSearchTerm term);
+
+
+    /**
+     * 文章状态变更
+     */
+    @PostMapping("/change/status/{status}")
+    boolean articleChangeStatus(@PathVariable("status") Integer status,
+                                @RequestParam("ids") String[] ids);
 }

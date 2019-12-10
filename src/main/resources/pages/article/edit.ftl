@@ -63,6 +63,7 @@
                                             <div class="x_content">
                                                 <input type="hidden" name="editorType" value="WANGEDITOR">
                                                 <input type="hidden" name="id" value="${(article.id)!}">
+                                                <input type="hidden" name="status" value="${(article.status)!0}">
                                                 <div class="item form-group">
                                                     <label class="control-label col-md-1 col-sm-1 col-xs-12" for="title">标题 <span class="required">*</span></label>
                                                     <div class="col-md-8 col-sm-8 col-xs-12">
@@ -77,7 +78,7 @@
                                                         <div class="checkbox">
                                                             <label class="">
                                                                 <div class="icheckbox_flat-green" style="position: relative;">
-                                                                    <input type="checkbox" name="top" value="${(article.top)!false}" class="flat" ${((article.top)??)?string("checked='checked'","")} >
+                                                                    <input type="checkbox" name="top" value="${(article.top)?then('true','false')}" class="flat" ${(article.top)?then("checked='checked'","")} >
                                                                     <ins class="iCheck-helper"></ins>
                                                                 </div>
                                                                 置顶
@@ -94,7 +95,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-md-1 col-sm-1 col-xs-12"></label>
                                                     <div class="col-md-10 col-sm-10 col-xs-12">
-                                                        <button type="button" id="publishArticle" class="btn btn-success to-choose-info"><i class="fa fa-pencil"> 发布文章</i></button>
+                                                        <button type="button" id="publishArticle" class="btn btn-success to-choose-info"><i class="fa fa-pencil">${(article.status==1)?then("保存文章","发布文章")}</i></button>
                                                     </div>
                                                 </div>
                                             </div>

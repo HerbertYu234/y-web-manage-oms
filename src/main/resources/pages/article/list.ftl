@@ -79,17 +79,14 @@
                                     <a class="btn btn-success" title="发表文章" href="${wolf.context}/article/edit"> <i
                                             class="fa fa-pencil fa-fw"></i>
                                     </a>
-                                    <button id="btn_delete_ids" type="button" class="btn btn-danger" title="删除选中"><i
+                                    <button id="btn_batch_delete" type="button" class="btn btn-danger" title="删除选中"><i
                                             class="fa fa-trash-o fa-fw"></i>
-
                                     </button>
-                                    <button id="btn_update_status" type="button" class="btn btn-dark" title="批量发布"><i
+                                    <button id="btn_status_undeploy" type="button" class="btn btn-dark" title="批量取消发布"><i
                                             class="fa fa-bullhorn fa-fw"></i>
-
                                     </button>
-                                    <button id="btn_push_ids" type="button" class="btn btn-info" title="批量推送到百度"><i
+                                    <button id="btn_status_deploy" type="button" class="btn btn-info" title="批量发布"><i
                                             class="fa fa-send-o fa-fw"></i>
-
                                     </button>
                                 </div>
                             </div>
@@ -114,7 +111,7 @@
                                     <th class="column-title">更新时间</th>
                                     <th class="column-title">Order</th>
                                     <th class="column-title">作者</th>
-                                    <th class="column-title">Status</th>
+                                    <th class="column-title">状态</th>
                                     <th class="column-title">是否置顶</th>
                                     <th class="column-title no-link last"><span class="nobr">操作</span>
                                     </th>
@@ -170,17 +167,13 @@
 <script>
     $(document).ready(function () {
 
-        let parmas = {
-            v: Math.random(),
-        }
-        $.get(wolf_context + "/article/page", parmas, function (pageArticle) {
-            console.log("pageArticle:", pageArticle);
-
+        YWM.Api.article.page().then(function (pageArticle) {
+            console.log("***this",this);
             let _temp = template.compile(`
                 {{if contents}}
                 {{each contents article index}}
                 {{set odd_even = index % 2 == 0 ? "even" : "odd"}}
-                <tr class="{{odd_even}} pointer">
+                <tr class="{{odd_even}} pointer" data-id={{article.id}}>
                     <td class="a-center ">
                         <input type="checkbox" class="flat" name="table_records">
                     </td>
@@ -188,10 +181,10 @@
                     <td class=" ">May 23, 2014 11:47:56 PM</td>
                     <td class=" ">121000210 <i class="success fa fa-long-arrow-up"></i></td>
                     <td class=" ">John Blank L</td>
-                    <td class=" ">Paid</td>
+                    <td class=" ">{{article.statusName}}</td>
                     <td class="a-right a-right ">{{article.top?"是":"否"}}</td>
                     <td class="last">
-                        <a href="${wolf.context}/article/{{article.editorType=='SIMPLEMDE'?'edit_md':'edit'}}?id={{article.id}}">View</a>
+                        <a href="${wolf.context}/article/{{article.editorType=='SIMPLEMDE'?'edit_md':'edit'}}?id={{article.id}}">编辑</a>
                         <a href="${wolf.context}/article/delete/{{article.id}}">删除</a>
                     </td>
                 </tr>
@@ -202,11 +195,50 @@
 
             init_DataTables();
             init_iCheck();
+        }).catch(function () {});
+
+
+        //批量删除
+        $("#btn_batch_delete").click(function () {
+
+        });
+
+        //批量发布
+        $("#btn_status_deploy").click(function () {
+            let ids = getTableActiveIds();
+            YWM.Api.article.batchChangeStatus(YWM.Constant.ArticleStatus.DEPLOY,ids).then(function () {
+                window.location.reload();
+            })
+        });
+
+        //批量取消发布
+        $("#btn_status_undeploy").click(function () {
+            let ids = getTableActiveIds();
+            YWM.Api.article.batchChangeStatus(YWM.Constant.ArticleStatus.UNDEPLOY,ids).then(function () {
+                window.location.reload();
+            })
         });
 
     });
 
-    function init_DataTables() {
+
+    function getTableActiveTr() {
+        return $(".bulk_action input[name='table_records']:checked").closest("tr");
+    }
+
+    function getTableActiveIds() {
+        let ids = [];
+        getTableActiveTr().each(function (index, tr) {
+            let id = $(tr).data("id");
+            if(id && !ids.includes(id)){
+                ids.push(id);
+            }
+        });
+        return ids;
+    }
+
+
+    function init_DataTables() { //http://www.datatables.net
         console.log('run_datatables');
 
         if (typeof ($.fn.DataTable) === 'undefined') {
