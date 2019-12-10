@@ -12,6 +12,11 @@ import java.util.List;
 public class ArticleSearchTerm implements SearchTerm {
 
     /**
+     * 关键字
+     */
+    private String keyword;
+
+    /**
      * 标题
      */
     private String title;
@@ -40,6 +45,14 @@ public class ArticleSearchTerm implements SearchTerm {
      * 是否置顶
      */
     private Boolean top;
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
 
     public String getTitle() {
         return title;

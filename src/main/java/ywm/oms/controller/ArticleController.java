@@ -31,8 +31,9 @@ public class ArticleController extends BaseController {
 
     @GetMapping("/page")
     @ResponseBody
-    public ResEntity page(@PageableDefault(size = 10, page = 0) Pageable pageable) {
-        Page<Article> articles = articleService.articleSearch(new ArticleSearchTerm(), pageable);
+    public ResEntity page(@PageableDefault(size = 10, page = 0) Pageable pageable,
+                          ArticleSearchTerm term) {
+        Page<Article> articles = articleService.articleSearch(term, pageable);
         return ResEntity.result(articles);
     }
 
