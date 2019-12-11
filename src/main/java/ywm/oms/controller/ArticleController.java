@@ -12,7 +12,6 @@ import ywm.library.shared.model.ArticleType;
 import ywm.library.shared.model.ResEntity;
 import ywm.oms.model.Article;
 import ywm.oms.service.remote.ArticleService;
-import ywm.oms.service.remote.ArticleTagService;
 import ywm.oms.service.term.ArticleSearchTerm;
 
 /**
@@ -24,9 +23,6 @@ public class ArticleController extends BaseController {
 
     @Autowired
     private ArticleService articleService;
-
-    @Autowired
-    private ArticleTagService articleTagService;
 
 
     @GetMapping("/list")

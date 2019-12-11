@@ -131,7 +131,7 @@
                             </div>
                         </div>
 
-                        <div class="table-responsive">
+                        <div>
                             <table id="datatable" class="table table-striped jambo_table bulk_action">
                                 <thead>
                                 <tr class="headings">
@@ -241,9 +241,8 @@
             console.log('datatables undefined');
             return;
         }
-        console.log('init_DataTables');
 
-        var handleDataTableButtons = function () {
+        /*var handleDataTableButtons = function () {
             if ($("#datatable-buttons").length) {
                 $("#datatable-buttons").DataTable({
                     dom: "Blfrtip",
@@ -281,7 +280,7 @@
                     handleDataTableButtons();
                 }
             };
-        }();
+        }();*/
 
         table = $('#datatable').dataTable({ //https://www.datatables.net/manual/
             processing: false, //DataTables载入数据时，是否显示‘进度’提示
@@ -381,7 +380,7 @@
             ]
         });
 
-        $('#datatable-keytable').DataTable({
+        /*$('#datatable-keytable').DataTable({
             keys: true
         });
 
@@ -413,7 +412,7 @@
             });
         });
 
-        TableManageButtons.init();
+        TableManageButtons.init();*/
 
     };
 </script>

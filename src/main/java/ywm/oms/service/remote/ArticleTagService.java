@@ -1,6 +1,9 @@
 package ywm.oms.service.remote;
 
+import com.wolf.cloud.annotition.Feigns;
 import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import ywm.oms.model.ArticleTag;
 
@@ -28,4 +31,10 @@ public interface ArticleTagService {
      */
     @GetMapping("/count")
     long tagCount();
+
+    /**
+     * 标签查询
+     */
+    @GetMapping("/page")
+    Page<ArticleTag> tagPage(@Feigns.Param Pageable pageable);
 }

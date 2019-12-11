@@ -7,9 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentelella Alela! |
-        <sitemesh:write property="title"/>
-    </title>
+    <title>Gentelella Alela! | <sitemesh:write property="title"/> </title>
 
     <!-- jQuery -->
     <script src="/js/lib/jquery.min.js"></script>
@@ -80,8 +78,8 @@
                             <li><a><i class="fa fa-edit"></i> 文章管理 <span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <li><a href="${wolf.context}/article/list">文章列表</a></li>
-                                    <li><a href="form_advanced.html">分类列表</a></li>
-                                    <li><a href="form_validation.html">标签列表</a></li>
+                                    <li><a href="${wolf.context}/article/type/list">分类列表</a></li>
+                                    <li><a href="${wolf.context}/article/tag/list">标签列表</a></li>
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-desktop"></i> UI Elements <span

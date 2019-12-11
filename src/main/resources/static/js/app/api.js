@@ -59,6 +59,26 @@ YWM.Api = {
                 })
             });
         }
+    },
+    articleTag:{
+        page: function (parmas = {}) {
+            parmas.v = Math.random();
+
+            return new Promise(function (resolve, reject) {
+                $.get(wolf_context + "/article/tag/page", parmas, function (res) {
+                    console.log("articleTagPage:", res);
+                    if (res.success) {
+                        resolve.call(this, res.result);
+                    } else {
+                        reject.call(this, res.msg || "error");
+                    }
+
+                }).fail(function () {
+                    console.log("*** error!", arguments);
+                    reject.apply(this, arguments);
+                })
+            });
+        },
     }
 }
 
