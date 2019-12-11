@@ -111,13 +111,14 @@
                                     <th class="column-title">ID</th>
                                     <th class="column-title">标题</th>
                                     <th class="column-title">更新时间</th>
+                                    <th class="column-title">分类</th>
                                     <th class="column-title">Order</th>
                                     <th class="column-title">作者</th>
                                     <th class="column-title">状态</th>
                                     <th class="column-title">是否置顶</th>
                                     <th class="column-title no-link last"><span class="nobr">操作</span>
                                     </th>
-                                    <th class="bulk-actions" colspan="8">
+                                    <th class="bulk-actions" colspan="9">
                                         <a class="antoo" style="color:#fff; font-weight:500;">批量操作 ( <span
                                                 class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
                                     </th>
@@ -331,7 +332,8 @@
                         return YWM.Util.formatDateTime(data);
                     }
                 },
-                {"data": null, "targets": 4, "defaultContent": "todo"},
+                {"data": "typeDesc", "targets": 4},
+                {"data": null, "targets": 5, "defaultContent": "todo"},
                 {"data": null, "defaultContent": "todo"},
                 {"data": "statusName"},
                 {
@@ -340,7 +342,7 @@
                     }
                 },
                 {
-                    "data": null, "targets": 8, render: function (data, type, row, meta) {
+                    "data": null, render: function (data, type, row, meta) {
                         let tmp = "<a href=" + wolf_context + "'/article/" + (data.editorType == 'SIMPLEMDE' ? 'edit_md' : 'edit') + "?id=" + data.id + "'>编辑</a>\n" +
                                 "<a href=" + wolf_context + "'/article/delete/" + data.id + "'>删除</a>";
                         return tmp;

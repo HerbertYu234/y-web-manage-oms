@@ -8,9 +8,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ywm.library.shared.model.ArticleType;
 import ywm.library.shared.model.ResEntity;
 import ywm.oms.model.Article;
 import ywm.oms.service.remote.ArticleService;
+import ywm.oms.service.remote.ArticleTagService;
 import ywm.oms.service.term.ArticleSearchTerm;
 
 /**
@@ -22,6 +24,9 @@ public class ArticleController extends BaseController {
 
     @Autowired
     private ArticleService articleService;
+
+    @Autowired
+    private ArticleTagService articleTagService;
 
 
     @GetMapping("/list")
@@ -39,6 +44,7 @@ public class ArticleController extends BaseController {
 
     @GetMapping("/edit")
     public String edit(@RequestParam(value = "id", required = false) String id, Model model) {
+        model.addAttribute("types",ArticleType.values());
         if (Strings.isNotBlank(id)) {
             Article article = articleService.articleDetail(id);
             if (null != article) {
@@ -50,6 +56,7 @@ public class ArticleController extends BaseController {
 
     @GetMapping("/edit_md")
     public String editMd(@RequestParam(value = "id", required = false) String id, Model model) {
+        model.addAttribute("types",ArticleType.values());
         if (Strings.isNotBlank(id)) {
             Article article = articleService.articleDetail(id);
             if (null != article) {

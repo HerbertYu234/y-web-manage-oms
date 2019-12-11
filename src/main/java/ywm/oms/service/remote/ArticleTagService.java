@@ -21,7 +21,7 @@ public interface ArticleTagService {
      * 标签删除
      */
     @DeleteMapping("/remove/{id}")
-    boolean tagRemove(@PathVariable String id);
+    boolean tagRemove(@PathVariable("id") String id);
 
     /**
      * 标签数量

@@ -37,6 +37,8 @@ public class Article extends ViewModel {
      */
     private ArticleType type;
 
+    private String typeDesc;
+
     /**
      * 标签
      */
@@ -121,6 +123,9 @@ public class Article extends ViewModel {
 
     public void setType(ArticleType type) {
         this.type = type;
+        if(null!=type){
+            this.typeDesc = type.getDesc();
+        }
     }
 
     public List<String> getTags() {
@@ -197,5 +202,13 @@ public class Article extends ViewModel {
 
     public void setStatusName(String statusName) {
         this.statusName = statusName;
+    }
+
+    public String getTypeDesc() {
+        return typeDesc;
+    }
+
+    public void setTypeDesc(String typeDesc) {
+        this.typeDesc = typeDesc;
     }
 }

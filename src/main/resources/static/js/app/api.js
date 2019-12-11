@@ -68,5 +68,4 @@ YWM.Constant = {
         DEPLOY: 0,
         UNDEPLOY: 1
     },
-
 }

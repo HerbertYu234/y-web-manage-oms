@@ -68,8 +68,20 @@
                                                 <div class="item form-group">
                                                     <label class="control-label col-md-1 col-sm-1 col-xs-12" for="title">标题 <span class="required">*</span></label>
                                                     <div class="col-md-8 col-sm-8 col-xs-12">
-                                                        <input type="text" class="form-control col-md-7 col-xs-12" name="title" id="title" value="${(article.title)!}" required="required" placeholder="请输入标题"/>
+                                                        <input type="text" class="form-control" name="title" id="title" value="${(article.title)!}" required="required" placeholder="请输入标题"/>
                                                     </div>
+
+                                                    <div class="col-md-2 col-sm-2 col-xs-12">
+                                                        <select class="form-control" name="type">
+                                                            <option>--选择分类--</option>
+                                                            <#if types??>
+                                                                <#list types as type>
+                                                                    <option value="${type}" ${((article.type?? && article.type==type))?then("selected='selected'","")} >${type.desc}</option>
+                                                                </#list>
+                                                            </#if>
+                                                        </select>
+                                                    </div>
+
                                                     <div class="col-md-1 col-sm-1 col-xs-12">
                                                         <#--<div class="checkbox">-->
                                                             <#--<label>-->
