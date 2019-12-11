@@ -55,6 +55,8 @@
     <script src="/js/lib/iCheck/icheck.min.js"></script>
 
     <script src="${wolf.static}/js/lib/artTemplate/art-template.js"></script>
+
+    <script src="${wolf.static}/js/app/main.js"></script>
     <script src="${wolf.static}/js/app/api.js"></script>
 
     <sitemesh:write property="head"/>

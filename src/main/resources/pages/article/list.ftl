@@ -328,7 +328,7 @@
                 {"data": "title"},
                 {
                     "data": "updateTime", render: function (data, type, row, meta) {
-                        return "May 23, 2014 11:47:56 PM";
+                        return YWM.Util.formatDateTime(data);
                     }
                 },
                 {"data": null, "targets": 4, "defaultContent": "todo"},
