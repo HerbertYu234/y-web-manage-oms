@@ -24,9 +24,9 @@
     <link  href="/js/lib/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <script src="/js/lib/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
 
-    <script src="/js/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <link  href="/js/lib/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-    <script src="/js/lib/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <#--<script src="/js/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>-->
+    <#--<link  href="/js/lib/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">-->
+    <#--<script src="/js/lib/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>-->
 
     <link  href="/js/lib/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <script src="/js/lib/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
