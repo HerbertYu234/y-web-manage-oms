@@ -2,6 +2,36 @@
 <html lang="en">
 <head>
     <title>文章列表 </title>
+
+    <!-- iCheck -->
+    <link  href="/js/lib/iCheck/skins/flat/green.css" rel="stylesheet">
+    <script src="/js/lib/iCheck/icheck.min.js"></script>
+
+    <!-- Datatables -->
+    <script src="/js/lib/datatables.net/js/jquery.dataTables.js"></script>
+
+    <link  href="/js/lib/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <script src="/js/lib/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+    <script src="/js/lib/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/js/lib/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="/js/lib/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="/js/lib/datatables.net-buttons/js/buttons.print.min.js"></script>
+
+    <link  href="/js/lib/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <script src="/js/lib/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+
+    <link  href="/js/lib/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <script src="/js/lib/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+
+    <script src="/js/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <link  href="/js/lib/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <script src="/js/lib/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+
+    <link  href="/js/lib/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <script src="/js/lib/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+
+    <script src="/js/lib/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
 </head>
 
 <body class="nav-md">

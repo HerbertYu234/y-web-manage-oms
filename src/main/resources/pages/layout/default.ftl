@@ -11,56 +11,33 @@
         <sitemesh:write property="title"/>
     </title>
 
-    <!-- Bootstrap -->
-    <link href="/js/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="/css/fontawesome/font-awesome.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="/js/lib/nprogress/nprogress.css" rel="stylesheet">
-
-    <!-- Custom Theme Style -->
-    <link href="/js/lib/gentelella/custom.min.css" rel="stylesheet">
-
     <!-- jQuery -->
     <script src="/js/lib/jquery.min.js"></script>
+
     <!-- Bootstrap -->
+    <link href="/js/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <script src="/js/lib/bootstrap/bootstrap.bundle.min.js"></script>
-    <!-- FastClick -->
-    <script src="/js/lib/fastclick/fastclick.js"></script>
+
+    <!-- Font Awesome -->
+    <link href="/css/fontawesome/font-awesome.css" rel="stylesheet">
+
+    <!-- gentelella Custom Theme Css -->
+    <link href="${wolf.static}/js/lib/gentelella/custom.min.css" rel="stylesheet">
+
     <!-- NProgress -->
-    <script src="/js/lib/nprogress/nprogress.js"></script>
+    <#--<link href="/js/lib/nprogress/nprogress.css" rel="stylesheet">-->
+    <#--<script src="/js/lib/nprogress/nprogress.js"></script>-->
 
-    <!-- Datatables -->
-    <link href="/js/lib/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="/js/lib/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
-    <link href="/js/lib/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
-    <link href="/js/lib/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-    <link href="/js/lib/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <!-- FastClick -->
+    <#--<script src="/js/lib/fastclick/fastclick.js"></script>-->
 
-    <script src="/js/lib/datatables.net/js/jquery.dataTables.js"></script>
-    <script src="/js/lib/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-    <script src="/js/lib/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-    <script src="/js/lib/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
-    <script src="/js/lib/datatables.net-buttons/js/buttons.flash.min.js"></script>
-    <script src="/js/lib/datatables.net-buttons/js/buttons.html5.min.js"></script>
-    <script src="/js/lib/datatables.net-buttons/js/buttons.print.min.js"></script>
-    <script src="/js/lib/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
-    <script src="/js/lib/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-    <script src="/js/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="/js/lib/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
-    <script src="/js/lib/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
-
-    <!-- iCheck -->
-    <link href="/js/lib/iCheck/skins/flat/green.css" rel="stylesheet">
-    <script src="/js/lib/iCheck/icheck.min.js"></script>
-
+    <!-- artTemplate -->
     <script src="${wolf.static}/js/lib/artTemplate/art-template.js"></script>
+
 
     <script src="${wolf.static}/js/app/main.js"></script>
     <script src="${wolf.static}/js/app/api.js"></script>
-
     <sitemesh:write property="head"/>
-
     <script>
         const wolf_context = "${wolf.context}";
         const wolf_static = "${wolf.static}";
@@ -332,7 +309,7 @@
 </div>
 
 
-<!-- Custom Theme Scripts -->
-<script src="/js/lib/gentelella/custom.js"></script>
+<!-- gentelella Custom Theme Scripts -->
+<script src="${wolf.static}/js/lib/gentelella/custom.js"></script>
 </body>
 </html>

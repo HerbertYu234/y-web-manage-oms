@@ -27,6 +27,6 @@ public class HomeController extends BaseController {
 
     @GetMapping("/plain")
     private String plain(Model model) {
-        return "/plain.ftl";
+        return "/plain";
     }
 }

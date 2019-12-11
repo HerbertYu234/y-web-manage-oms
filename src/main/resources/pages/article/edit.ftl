@@ -1,6 +1,10 @@
 <html>
 <head>
     <title>文章发布</title>
+    <!-- iCheck -->
+    <link  href="/js/lib/iCheck/skins/flat/green.css" rel="stylesheet">
+    <script src="/js/lib/iCheck/icheck.min.js"></script>
+
     <script src="${wolf.static}/js/lib/wangEditor/wangEditor.js"></script>
 </head>
 <body>
