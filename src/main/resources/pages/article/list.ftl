@@ -105,7 +105,7 @@
 
                         <div class="fixed-table-toolbar">
                             <div class="bs-bars pull-left">
-                                <div class="btn-group hidden-xs" id="toolbar">
+                                <div class="btn-group hidden-xs" >
                                     <a class="btn btn-success" title="发表文章" href="${wolf.context}/article/edit"> <i
                                             class="fa fa-pencil fa-fw"></i>
                                     </a>
@@ -361,8 +361,8 @@
                         return YWM.Util.formatDateTime(data);
                     }
                 },
-                {"data": "typeDesc", "targets": 4},
-                {"data": null, "targets": 5, "defaultContent": "todo"},
+                {"data": "typeDesc"},
+                {"data": null, "defaultContent": "todo"},
                 {"data": null, "defaultContent": "todo"},
                 {"data": "statusName"},
                 {

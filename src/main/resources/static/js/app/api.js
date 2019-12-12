@@ -2,6 +2,7 @@ if (typeof YWM == "undefined") {
     YWM = {};
 }
 
+
 YWM.Api = {
     article: {
         page: function (parmas = {}) {
@@ -79,6 +80,37 @@ YWM.Api = {
                 })
             });
         },
+        store: function (params) {
+            return new Promise(function (resolve, reject) {
+                $.post(wolf_context + "/article/tag/store", params, function (res) {
+                    console.log("articleTagStore:", res);
+                    if (res.success) {
+                        resolve.call(this, res.result);
+                    } else {
+                        reject.call(this, res.msg || "error");
+                    }
+
+                }).fail(function () {
+                    console.log("*** error!", arguments);
+                    reject.apply(this, arguments);
+                })
+            });
+        },
+        findById: function (id) {
+            return new Promise(function (resolve, reject) {
+                $.get(wolf_context + "/article/tag/detail/"+id, {}, function (res) {
+                    if (res.success) {
+                        resolve.call(this, res.result);
+                    } else {
+                        reject.call(this, res.msg || "error");
+                    }
+
+                }).fail(function () {
+                    console.log("*** error!", arguments);
+                    reject.apply(this, arguments);
+                })
+            });
+        }
     }
 }
 

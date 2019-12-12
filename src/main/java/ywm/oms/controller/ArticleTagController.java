@@ -6,9 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import ywm.library.shared.model.ResEntity;
 import ywm.oms.model.ArticleTag;
 import ywm.oms.service.remote.ArticleTagService;
@@ -34,5 +32,24 @@ public class ArticleTagController extends BaseController {
     public ResEntity page(@PageableDefault(size = Integer.MAX_VALUE, page = 0) Pageable pageable) {
         Page<ArticleTag> tags = articleTagService.tagPage(pageable);
         return ResEntity.result(tags);
+    }
+
+    @PostMapping("/store")
+    @ResponseBody
+    public ResEntity store(ArticleTag tag) {
+        ArticleTag save = articleTagService.tagSave(tag);
+        return ResEntity.result(save);
+    }
+
+    @GetMapping("/detail/{id}")
+    @ResponseBody
+    public ResEntity detail(@PathVariable("id")String id){
+        return ResEntity.result(articleTagService.tagDetail(id));
+    }
+
+    @PostMapping("/delete")
+    @ResponseBody
+    public ResEntity batchDelete(@RequestParam String[] ids) {
+        return ResEntity.result(articleTagService.tagRemove(ids));
     }
 }

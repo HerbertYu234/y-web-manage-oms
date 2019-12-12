@@ -27,6 +27,12 @@ public interface ArticleTagService {
     boolean tagRemove(@PathVariable("id") String id);
 
     /**
+     * 标签删除
+     */
+    @PostMapping("/remove")
+    boolean tagRemove(@RequestParam("ids") String[] ids);
+
+    /**
      * 标签数量
      */
     @GetMapping("/count")
@@ -37,4 +43,10 @@ public interface ArticleTagService {
      */
     @GetMapping("/page")
     Page<ArticleTag> tagPage(@Feigns.Param Pageable pageable);
+
+    /**
+     * 标签详情
+     */
+    @GetMapping("/detail/{id}")
+    ArticleTag tagDetail(@PathVariable("id") String id);
 }
