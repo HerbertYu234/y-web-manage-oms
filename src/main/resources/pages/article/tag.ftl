@@ -8,8 +8,54 @@
     <!-- Datatables -->
     <script src="/js/lib/datatables.net/js/jquery.dataTables.js"></script>
     <link href="/js/lib/datatables.net/css/jquery.dataTables.css" rel="stylesheet">
-<#--<link  href="/js/lib/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">-->
-<#--<script src="/js/lib/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>-->
+
+    <#--<link  href="/js/lib/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">-->
+    <#--<script src="/js/lib/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>-->
+    <style type="text/css">
+        .dataTables_paginate .paginate_button{
+            box-sizing: initial !important;
+            display: initial !important;
+            min-width: initial !important;
+            padding: initial !important;
+            margin-left: initial !important;
+            text-align: initial !important;
+            text-decoration: initial !important;
+            color: initial !important;
+            border: initial !important;
+            border-radius: initial !important;
+        }
+        .paginate_button:hover{
+            background: none!important;
+        }
+
+        .dataTables_paginate .paginate_button>a{
+            font-size: 12px;
+            display: inline-block;
+            font-weight: bold;
+            padding: 0 10px;
+            line-height: 20px;
+            text-align: center;
+            transition: 0.3s all linear;
+
+            padding: 6px 9px !important;
+            background: rgba(65, 167, 191, 0.2) !important;
+            /*box-shadow: inset 0 0 45px 0 rgba(32, 101, 143, 0.35);*/
+            border-color: #ddd !important;
+        }
+
+        .dataTables_paginate .paginate_button> a:hover, .dataTables_paginate .paginate_button.active>a {
+            /*background: #0099f1;*/
+            color: #009cd7;
+            /*border-radius: 50px;*/
+            /*-webkit-border-radius: 50px;*/
+            transition: 0.3s all linear;
+
+            padding: 6px 9px !important;
+            background: rgba(65, 167, 191, 0.2) !important;
+            /*box-shadow: inset 0 0 45px 0 rgba(32, 101, 143, 0.35);*/
+            border-color: #ddd !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -90,7 +136,12 @@
                             </div>
                         </div>
 
-                        <table id="datatable" class="display bulk_action" style="width:100%"><!--bulk_action仅仅为了js选择器-->
+                        <!--
+                            1、bulk_action仅仅为了js选择器
+                            2、class: display  in jquery.dataTables.css
+                            2、class: table table-striped jambo_table  in dataTables.bootstrap.min.css
+                        -->
+                        <table id="datatable" class="display bulk_action" style="width:100%">
                             <thead>
                             <tr>
                                 <th>
@@ -115,61 +166,14 @@
 
 <script>
     $(function () {
-        // Disable search and ordering by default
-        $.extend($.fn.dataTable.defaults, {
-            searching: false,
-            ordering: false
-        });
 
-        $('#datatable').DataTable({
-            autoWidth: true, //是否自适应宽度
-            deferRender: true,
-            info: true, //是否显示页脚信息，DataTables插件左下角显示记录数 <Showing 0 to 0 of 0 entries>
+        new YWM.Table($('#datatable'),{
+            info: false,
             lengthChange: true,
-            ordering: false, //是否启动各个字段的排序功能
-            paging: true,
-            processing: false, //DataTables载入数据时，是否显示‘进度’提示
-            // scrollX: true,
-            scrollY: true,
-            searching: false, //是否启动过滤、搜索功能
-            bServerSide: true,//开启此模式后，你对datatables的每个操作 每页显示多少条记录、下一页、上一页、排序（表头）、搜索，这些都会传给服务器相应的值
-            stateSave: false,//使用sessionStorage或localStorage保存datatable信息（pagination position, display length, filtering and sorting）
-
-            sAjaxDataProp: "content",
-
-            ajax: function (data, callback, settings) {
-                let page = data.start / data.length;
-                let param = {
-                    page: page,
-                    size: data.length,
-                };
-                YWM.Api.articleTag.page(param).then(function (res) {
-                    //封装返回数据
-                    let returnData = {
-                        content: [],
-                        draw: data.draw,//这里直接自行返回了draw计数器,应该由后台返回
-                        recordsTotal: 0,
-                        recordsFiltered: 0,
-                    };
-                    if (res) {
-                        returnData.recordsTotal = res.totalElements;//返回数据全部记录
-                        returnData.recordsFiltered = res.totalElements;//后台不实现过滤功能，每次查询均视作全部结果
-                        if (res.content) {
-                            returnData.content = res.content;//返回的数据列表
-                            //console.log(returnData);
-                        }
-                    }
-                    //调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
-                    //此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
-                    callback(returnData);
-                });
+            serverPromise: function(param){
+                return YWM.Api.articleTag.page(param);
             },
-
-            //Callbacks
             createdRow: function (row, data, index) {
-                // $(row).data("test","test-"+index); 没起效？
-                row.setAttribute("data-test", "test-" + index);
-                // $(row).addClass( 'important' );
                 console.log("createdRow:", row, data, index);
             },
             rowCallback: function (row, data, displayNum, displayIndex, dataIndex) {
@@ -179,56 +183,15 @@
                 console.log("footerCallback:", row, data, start, end, display);
             },
             drawCallback: function (settings) {
-                console.log('DataTables has redrawn the table', settings);
                 init_iCheck();
-
-                // var startIndex = this.api().context[0]._iDisplayStart;//获取到本页开始的条数
-                // this.api().column(0).nodes().each(function (cell, i) {
-                //     //翻页序号连续
-                //     cell.innerHTML = startIndex + i + 1;
-                // });
             },
-            formatNumber: function (toFormat) {
-                console.log("formatNumber: ", toFormat);
-            },
-
-            headerCallback: function (thead, data, start, end, display) {
-                // $(thead).find('th').eq(0).html( 'Displaying '+(end-start)+' records' );
-                console.log("headerCallback: ", start, end);
-            },
-            infoCallback: function (settings, start, end, max, total, pre) {
-                var api = this.api();
-                var pageInfo = api.page.info();
-
-                return 'Page ' + (pageInfo.page + 1) + ' of ' + pageInfo.pages;
-            },
-
             initComplete: function (settings, json) {
                 console.log("initComplete!");
-                // $('div.loading').remove();
             },
-
-            displayStart: 0,
-            lengthMenu: [5, 10, 20], //更改显示记录数  也可以：[ [10, 25, 50, -1], [10, 25, 50, "All"] ]
-            pageLength: 5, //默认显示的记录数
-
-            pagingType: "full_numbers", //numbers、simple、simple_numbers、full、full_numbers、first_last_numbers
-            rowId: "id", //tr DOM ID
-
-            // stripeClasses: [ 'strip1', 'strip2', 'strip3' ],
-            tabIndex: 0, //键盘导航table 0:默认文档流，-1:禁用
-
-            language: {
-                emptyTable: "Nothing found",
-                zeroRecords: "Nothing found",
-                // info: "Showing page _PAGE_ of _PAGES_",
-                // infoEmpty: "No records available",
-                lengthMenu: "每页 _MENU_ 条记录",
-            },
-
-            bScrollCollapse: true, //是否开启DataTables的高度自适应，当数据条数不够分页数据条数的时候，插件高度是否随数据条数而改变
-
-            columns: [ //columns 优先级>columnDefs; 同一columnDefs内 上面的优先级>下面的
+            lengthMenu: [2,5, 10, 20], //更改显示记录数  也可以：[ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+            pageLength: 2, //默认显示的记录数
+            pagingType: "input",//"full_numbers",
+            columns: [
                 {
                     render: function (data, type, row, meta) {
                         return "<input type='checkbox' class='flat' name='table_records'>";
@@ -245,16 +208,12 @@
                     }
                 }
             ],
-
             columnDefs: [
                 // { targets: [0], width: "20%"},
                 {targets: '_all', visible: true}
             ],
-
-            dom: '<"top"lf>rt<"bottom"ip><"clear">', //https://www.datatables.net/examples/basic_init/dom.html
-
+            dom: '<"top"f>rt<"bottom"l<"clear">ip><"clear">'
         });
-
 
         //保存标签
         $(".btn_modal_save").click(function () {

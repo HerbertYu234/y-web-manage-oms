@@ -298,7 +298,7 @@
             info: true, //是否显示页脚信息，DataTables插件左下角显示记录数
             autoWidth: true, //是否自适应宽度
             bScrollCollapse: true, //是否开启DataTables的高度自适应，当数据条数不够分页数据条数的时候，插件高度是否随数据条数而改变
-            pagingType: "full_numbers", //详细分页组，可以支持直接跳转到某页
+            pagingType: "full_numbers", //详细分页组
             bSort: false, //是否启动各个字段的排序功能
             bFilter: false, //是否启动过滤、搜索功能
             bServerSide: true,//开启此模式后，你对datatables的每个操作 每页显示多少条记录、下一页、上一页、排序（表头）、搜索，这些都会传给服务器相应的值

@@ -599,10 +599,182 @@ const NS = "YWM";
             }
         };
 
+
+        // Disable search and ordering by default
+        // $.extend($.fn.dataTable.defaults, {
+        //     searching: false,
+        //     ordering: false
+        // });
+        const Table = function ($target, ops = {}) {
+            let serverPromise = ops.serverPromise;
+            let dataTable = $target.DataTable({
+                autoWidth: typeof ops.autoWidth != "undefined" ? ops.autoWidth : true, //是否自适应宽度
+                deferRender: true,
+                info: typeof ops.info != "undefined" ? ops.info : true, //是否显示页脚信息，DataTables插件左下角显示记录数 <Showing 0 to 0 of 0 entries>
+                lengthChange: typeof ops.lengthChange != "undefined" ? ops.lengthChange : true,
+                ordering: false, //是否启动各个字段的排序功能
+                paging: true,
+                processing: false, //DataTables载入数据时，是否显示‘进度’提示
+                // scrollX: true,
+                scrollY: true,
+                searching: false, //是否启动过滤、搜索功能
+                bServerSide: true,//开启此模式后，你对datatables的每个操作 每页显示多少条记录、下一页、上一页、排序（表头）、搜索，这些都会传给服务器相应的值
+                stateSave: false,//使用sessionStorage或localStorage保存datatable信息（pagination position, display length, filtering and sorting）
+                // renderer: "bootstrap",
+                sAjaxDataProp: ops.sAjaxDataProp || "content",
+
+                ajax: function (data, callback, settings) {
+                    let page = data.start / data.length;
+                    let param = {
+                        page: page,
+                        size: data.length,
+                    };
+                    serverPromise(param).then(function (res) {
+                        //封装返回数据
+                        let returnData = {
+                            content: [],
+                            draw: data.draw,//这里直接自行返回了draw计数器,应该由后台返回
+                            recordsTotal: 0,
+                            recordsFiltered: 0,
+                        };
+                        if (res) {
+                            returnData.recordsTotal = res.totalElements;//返回数据全部记录
+                            returnData.recordsFiltered = res.totalElements;//后台不实现过滤功能，每次查询均视作全部结果
+                            if (res.content) {
+                                returnData.content = res.content;//返回的数据列表
+                                //console.log(returnData);
+                            }
+                        }
+                        //调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
+                        //此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+                        callback(returnData);
+                    });
+                },
+
+                //Callbacks
+                createdRow: function (row, data, index) {
+                    // $(row).data("test","test-"+index); 没起效？
+                    row.setAttribute("data-test", "test-" + index);
+                    // $(row).addClass( 'important' );
+                    // console.log("createdRow:", row, data, index);
+                    ops.createdRow && ops.createdRow(...arguments);
+                },
+                rowCallback: function (row, data, displayNum, displayIndex, dataIndex) {
+                    // console.log("rowCallback: ", row, data, displayNum, displayIndex, dataIndex);
+                    ops.rowCallback && ops.rowCallback(...arguments);
+                },
+                footerCallback: function (row, data, start, end, display) {
+                    // console.log("footerCallback:", row, data, start, end, display);
+                    ops.footerCallback && ops.footerCallback(...arguments);
+                },
+                drawCallback: function (settings) {
+                    console.log('DataTables has redrawn the table', settings);
+                    // var startIndex = this.api().context[0]._iDisplayStart;//获取到本页开始的条数
+                    // this.api().column(0).nodes().each(function (cell, i) {
+                    //     //翻页序号连续
+                    //     cell.innerHTML = startIndex + i + 1;
+                    // });
+                    ops.drawCallback && ops.drawCallback(...arguments);
+                },
+                formatNumber: function (toFormat) {
+                    console.log("formatNumber: ", toFormat);
+                },
+                headerCallback: function (thead, data, start, end, display) {
+                    // $(thead).find('th').eq(0).html( 'Displaying '+(end-start)+' records' );
+                    console.log("headerCallback: ", start, end);
+                },
+                infoCallback: function (settings, start, end, max, total, pre) {
+                    var api = this.api();
+                    var pageInfo = api.page.info();
+
+                    return 'Page ' + (pageInfo.page + 1) + ' of ' + pageInfo.pages;
+                },
+                initComplete: function (settings, json) {
+                    console.log("initComplete!");
+                    // $('div.loading').remove();
+                    ops.initComplete && ops.initComplete(...arguments);
+                },
+
+                displayStart: 0,
+                lengthMenu: ops.lengthMenu || [10, 20, 30, 50], //更改显示记录数  也可以：[ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+                pageLength: ops.pageLength || 10, //默认显示的记录数
+                pagingType: ops.pagingType || "full_numbers", //numbers、simple、simple_numbers、full、full_numbers、first_last_numbers； input
+                rowId: ops.rowId || "id", //tr DOM ID
+
+                // stripeClasses: [ 'strip1', 'strip2', 'strip3' ],
+                tabIndex: 0, //键盘导航table 0:默认文档流，-1:禁用
+                language: {
+                    emptyTable: "Nothing found",
+                    zeroRecords: "Nothing found",
+                    // info: "Showing page _PAGE_ of _PAGES_",
+                    // infoEmpty: "No records available",
+                    lengthMenu: "每页 _MENU_ 条记录",
+                    paginate: {
+                        first: "首页",
+                        last: "末页",
+                        next: "下一页",
+                        previous: "上一页",
+                    }
+                },
+                bScrollCollapse: true, //是否开启DataTables的高度自适应，当数据条数不够分页数据条数的时候，插件高度是否随数据条数而改变
+                columns: ops.columns,  //columns 优先级>columnDefs; 同一columnDefs内 上面的优先级>下面的
+                columnDefs: ops.columnDefs || [
+                    // { targets: [0], width: "20%"},
+                    {targets: '_all', visible: true}
+                ],
+                dom: ops.dom || '<"top"lf>rt<"bottom"ip><"clear">', //https://www.datatables.net/examples/basic_init/dom.html
+            });
+            return dataTable;
+        };
+
+
+        const Pager = {
+            /**
+             * @param integer page 当前页
+             * @param integer totalPages 总页数
+             * @param integer showNum 最多显示多少个页码
+             */
+            range: function (page, totalPages, showNum = 5) {
+                //当前页面小于1 则为1
+                page = page < 1 ? 1 : page;
+                //当前页大于总页数 则为总页数
+                page = page > totalPages ? totalPages : page;
+                //页数小当前页 则为当前页
+                totalPages = totalPages < page ? page : totalPages;
+
+                //计算开始页
+                let start = page - Math.floor(showNum / 2);
+                start = start < 1 ? 1 : start;
+                //计算结束页
+                let end = page + Math.floor(showNum / 2);
+                end = end > totalPages ? totalPages : end;
+
+                //当前显示的页码个数不够最大页码数，进行左右调整
+                let $_curPageNum = end - start + 1;
+                //左调整
+                if ($_curPageNum < showNum && start > 1) {
+                    start = start - (showNum - $_curPageNum);
+                    start = start < 1 ? 1 : start;
+                    $_curPageNum = end - start + 1;
+                }
+                //右边调整
+                if ($_curPageNum < showNum && end < totalPages) {
+                    end = end + (showNum - $_curPageNum);
+                    end = end > totalPages ? totalPages : end;
+                }
+                return {
+                    start: start,
+                    end: end,
+                }
+            }
+        };
+
         exports.version = version;
         exports.author = author;
         exports.Util = Util;
         exports.Events = Events;
+        exports.Table = Table;
+        exports.Pager = Pager;
 
         let oldNS = window[NS];
         exports.noConflict = function () {

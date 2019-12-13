@@ -40,6 +40,12 @@
         const wolf_context = "${wolf.context}";
         const wolf_static = "${wolf.static}";
     </script>
+
+    <style>
+        .paging_input .paginate_input{
+            width: 30px;
+        }
+    </style>
 </head>
 
 <body class="nav-md">
