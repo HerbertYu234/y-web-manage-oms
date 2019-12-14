@@ -81,9 +81,10 @@
 <!-- /page content -->
 
 <script>
+    let table;
     $(function () {
 
-        new YWM.Table($('#datatable'),{
+        table = new YWM.Table($('#datatable'),{
             info: false,
             lengthChange: true,
             serverPromise: function(param){

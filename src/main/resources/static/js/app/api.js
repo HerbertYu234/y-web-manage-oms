@@ -111,6 +111,24 @@ YWM.Api = {
                 })
             });
         }
+    },
+
+    articleType: {
+        list: function () {
+            return new Promise(function (resolve, reject) {
+                $.get(wolf_context + "/article/type/data", {}, function (res) {
+                    if (res.success) {
+                        resolve.call(this, res.result);
+                    } else {
+                        reject.call(this, res.msg || "error");
+                    }
+
+                }).fail(function () {
+                    console.log("*** error!", arguments);
+                    reject.apply(this, arguments);
+                })
+            });
+        }
     }
 }
 

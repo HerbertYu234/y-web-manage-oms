@@ -23,6 +23,6 @@ public class ArticleTypeController extends BaseController {
     @GetMapping("/data")
     @ResponseBody
     public ResEntity data() {
-        return ResEntity.result(ArticleType.values());
+        return ResEntity.result(ArticleType.toListMap());
     }
 }

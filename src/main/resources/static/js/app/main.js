@@ -697,7 +697,7 @@ const NS = "YWM";
             };
 
             if(ops.data){
-                param.data = ops.ops;
+                param.data = ops.data;
                 param.bServerSide = false;
             }
 
