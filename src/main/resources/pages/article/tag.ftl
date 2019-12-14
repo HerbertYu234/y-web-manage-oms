@@ -1,6 +1,6 @@
+<#import "${wolf.context}/macros/modal.ftl" as modal />
 <head>
     <title>文章标签</title>
-
     <!-- iCheck -->
     <link href="/js/lib/iCheck/skins/flat/green.css" rel="stylesheet">
     <script src="/js/lib/iCheck/icheck.min.js"></script>
@@ -11,51 +11,6 @@
 
     <#--<link  href="/js/lib/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">-->
     <#--<script src="/js/lib/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>-->
-    <style type="text/css">
-        .dataTables_paginate .paginate_button{
-            box-sizing: initial !important;
-            display: initial !important;
-            min-width: initial !important;
-            padding: initial !important;
-            margin-left: initial !important;
-            text-align: initial !important;
-            text-decoration: initial !important;
-            color: initial !important;
-            border: initial !important;
-            border-radius: initial !important;
-        }
-        .paginate_button:hover{
-            background: none!important;
-        }
-
-        .dataTables_paginate .paginate_button>a{
-            font-size: 12px;
-            display: inline-block;
-            font-weight: bold;
-            padding: 0 10px;
-            line-height: 20px;
-            text-align: center;
-            transition: 0.3s all linear;
-
-            padding: 6px 9px !important;
-            background: rgba(65, 167, 191, 0.2) !important;
-            /*box-shadow: inset 0 0 45px 0 rgba(32, 101, 143, 0.35);*/
-            border-color: #ddd !important;
-        }
-
-        .dataTables_paginate .paginate_button> a:hover, .dataTables_paginate .paginate_button.active>a {
-            /*background: #0099f1;*/
-            color: #009cd7;
-            /*border-radius: 50px;*/
-            /*-webkit-border-radius: 50px;*/
-            transition: 0.3s all linear;
-
-            padding: 6px 9px !important;
-            background: rgba(65, 167, 191, 0.2) !important;
-            /*box-shadow: inset 0 0 45px 0 rgba(32, 101, 143, 0.35);*/
-            border-color: #ddd !important;
-        }
-    </style>
 </head>
 
 <body>
@@ -96,46 +51,6 @@
                             </button>
                         </div>
 
-                        <div class="modal fade modal-tag" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                             aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title" id="myModalLabel">标签编辑</h4>
-                                        <button type="button" class="close" data-dismiss="modal"><span
-                                                aria-hidden="true">×</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                    <#--<h4>Text in a modal</h4>-->
-                                        <form class="form-horizontal form-label-left addOrUpdateForm" novalidate>
-                                            <input type="hidden" name="id">
-                                            <div class="item form-group">
-                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">名称
-                                                    <span class="required">*</span></label>
-                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <input type="text" class="form-control " name="name"
-                                                           required="required" placeholder="请输入标签名称"/>
-                                                </div>
-                                            </div>
-                                            <div class="item form-group">
-                                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                                                       for="description">标签描述 </label>
-                                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                                    <textarea class="form-control " name="desc" placeholder="请输入标签描述"
-                                                              maxlength="100"></textarea>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                                        <button type="button" class="btn btn-primary btn_modal_save">保存</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         <!--
                             1、bulk_action仅仅为了js选择器
                             2、class: display  in jquery.dataTables.css
@@ -161,6 +76,7 @@
             </div>
         </div>
     </div>
+    <@modal.tag_edit></@modal.tag_edit>
 </div>
 <!-- /page content -->
 
@@ -188,8 +104,8 @@
             initComplete: function (settings, json) {
                 console.log("initComplete!");
             },
-            lengthMenu: [2,5, 10, 20], //更改显示记录数  也可以：[ [10, 25, 50, -1], [10, 25, 50, "All"] ]
-            pageLength: 2, //默认显示的记录数
+            lengthMenu: [4, 5, 10, 20], //更改显示记录数  也可以：[ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+            pageLength: 4, //默认显示的记录数
             pagingType: "input",//"full_numbers",
             columns: [
                 {

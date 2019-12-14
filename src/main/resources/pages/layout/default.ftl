@@ -2,48 +2,71 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Gentelella Alela! | <sitemesh:write property="title"/> </title>
-
-    <!-- jQuery -->
-    <script src="/js/lib/jquery.min.js"></script>
-
-    <!-- Bootstrap -->
-    <link href="/js/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <script src="/js/lib/bootstrap/bootstrap.bundle.min.js"></script>
-
-    <!-- Font Awesome -->
-    <link href="/css/fontawesome/font-awesome.css" rel="stylesheet">
-
-    <!-- gentelella Custom Theme Css -->
-    <link href="${wolf.static}/js/lib/gentelella/custom.min.css" rel="stylesheet">
-
-    <!-- NProgress -->
-    <#--<link href="/js/lib/nprogress/nprogress.css" rel="stylesheet">-->
-    <#--<script src="/js/lib/nprogress/nprogress.js"></script>-->
-
-    <!-- FastClick -->
-    <#--<script src="/js/lib/fastclick/fastclick.js"></script>-->
-
-    <!-- artTemplate -->
-    <script src="${wolf.static}/js/lib/artTemplate/art-template.js"></script>
-
-
-    <script src="${wolf.static}/js/app/main.js"></script>
-    <script src="${wolf.static}/js/app/api.js"></script>
+    <title>Gentelella Alela! |
+        <sitemesh:write property="title"/>
+    </title>
+    <#include "/layout/head.ftl">
     <sitemesh:write property="head"/>
-    <script>
-        const wolf_context = "${wolf.context}";
-        const wolf_static = "${wolf.static}";
-    </script>
 
-    <style>
-        .paging_input .paginate_input{
+    <style type="text/css">
+        .dataTables_paginate .paginate_button {
+            box-sizing: initial !important;
+            display: initial !important;
+            min-width: initial !important;
+            padding: initial !important;
+            margin-left: initial !important;
+            text-align: initial !important;
+            text-decoration: initial !important;
+            color: initial !important;
+            border: initial !important;
+            border-radius: initial !important;
+        }
+
+        .paginate_button:hover {
+            background: none !important;
+        }
+
+        .dataTables_paginate .paginate_button > a {
+            font-size: 12px;
+            display: inline-block;
+            font-weight: bold;
+            padding: 0 10px;
+            line-height: 20px;
+            text-align: center;
+            transition: 0.3s all linear;
+
+            padding: 6px 9px !important;
+            background: rgba(65, 167, 191, 0.2) !important;
+            /*box-shadow: inset 0 0 45px 0 rgba(32, 101, 143, 0.35);*/
+            border-color: #ddd !important;
+        }
+
+        .dataTables_paginate .paginate_button > a:hover, .dataTables_paginate .paginate_button.active > a {
+            /*background: #0099f1;*/
+            color: #009cd7;
+            /*border-radius: 50px;*/
+            /*-webkit-border-radius: 50px;*/
+            transition: 0.3s all linear;
+
+            padding: 6px 9px !important;
+            background: rgba(65, 167, 191, 0.2) !important;
+            /*box-shadow: inset 0 0 45px 0 rgba(32, 101, 143, 0.35);*/
+            border-color: #ddd !important;
+        }
+
+        .paging_input .paginate_input {
             width: 30px;
+        }
+
+        .btn-secondary.active {
+            background-color: #17a2b8 !important;
+            border-color: #17a2b8 !important;
+        }
+        .btn{
+            cursor: pointer !important;
         }
     </style>
 </head>
@@ -54,7 +77,8 @@
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="${wolf.context}/" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+                    <a href="${wolf.context}/" class="site_title"><i class="fa fa-paw"></i>
+                        <span>Gentelella Alela!</span></a>
                 </div>
 
                 <div class="clearfix"></div>

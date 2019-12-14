@@ -606,50 +606,21 @@ const NS = "YWM";
         //     ordering: false
         // });
         const Table = function ($target, ops = {}) {
-            let serverPromise = ops.serverPromise;
-            let dataTable = $target.DataTable({
+            let param = {
                 autoWidth: typeof ops.autoWidth != "undefined" ? ops.autoWidth : true, //是否自适应宽度
                 deferRender: true,
                 info: typeof ops.info != "undefined" ? ops.info : true, //是否显示页脚信息，DataTables插件左下角显示记录数 <Showing 0 to 0 of 0 entries>
                 lengthChange: typeof ops.lengthChange != "undefined" ? ops.lengthChange : true,
                 ordering: false, //是否启动各个字段的排序功能
-                paging: true,
+                paging: typeof ops.paging != "undefined" ? ops.paging: true,
                 processing: false, //DataTables载入数据时，是否显示‘进度’提示
                 // scrollX: true,
                 scrollY: true,
                 searching: false, //是否启动过滤、搜索功能
-                bServerSide: true,//开启此模式后，你对datatables的每个操作 每页显示多少条记录、下一页、上一页、排序（表头）、搜索，这些都会传给服务器相应的值
+                bServerSide: typeof ops.bServerSide!= "undefined"?ops.bServerSide: true,//开启此模式后，你对datatables的每个操作 每页显示多少条记录、下一页、上一页、排序（表头）、搜索，这些都会传给服务器相应的值
                 stateSave: false,//使用sessionStorage或localStorage保存datatable信息（pagination position, display length, filtering and sorting）
                 // renderer: "bootstrap",
                 sAjaxDataProp: ops.sAjaxDataProp || "content",
-
-                ajax: function (data, callback, settings) {
-                    let page = data.start / data.length;
-                    let param = {
-                        page: page,
-                        size: data.length,
-                    };
-                    serverPromise(param).then(function (res) {
-                        //封装返回数据
-                        let returnData = {
-                            content: [],
-                            draw: data.draw,//这里直接自行返回了draw计数器,应该由后台返回
-                            recordsTotal: 0,
-                            recordsFiltered: 0,
-                        };
-                        if (res) {
-                            returnData.recordsTotal = res.totalElements;//返回数据全部记录
-                            returnData.recordsFiltered = res.totalElements;//后台不实现过滤功能，每次查询均视作全部结果
-                            if (res.content) {
-                                returnData.content = res.content;//返回的数据列表
-                                //console.log(returnData);
-                            }
-                        }
-                        //调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
-                        //此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
-                        callback(returnData);
-                    });
-                },
 
                 //Callbacks
                 createdRow: function (row, data, index) {
@@ -723,7 +694,47 @@ const NS = "YWM";
                     {targets: '_all', visible: true}
                 ],
                 dom: ops.dom || '<"top"lf>rt<"bottom"ip><"clear">', //https://www.datatables.net/examples/basic_init/dom.html
-            });
+            };
+
+            if(ops.data){
+                param.data = ops.ops;
+                param.bServerSide = false;
+            }
+
+            if(param.bServerSide){
+                if(!ops.serverPromise){
+                    console.error("服务端处理请指定serverPromise请求数据!");
+                    return;
+                }
+                param.ajax = function (data, callback, settings) {
+                    let page = data.start / data.length;
+                    let params = {
+                        page: page,
+                        size: data.length,
+                    };
+                    ops.serverPromise(params).then(function (res) {
+                        //封装返回数据
+                        let returnData = {
+                            content: [],
+                            draw: data.draw,//这里直接自行返回了draw计数器,应该由后台返回
+                            recordsTotal: 0,
+                            recordsFiltered: 0,
+                        };
+                        if (res) {
+                            returnData.recordsTotal = res.totalElements;//返回数据全部记录
+                            returnData.recordsFiltered = res.totalElements;//后台不实现过滤功能，每次查询均视作全部结果
+                            if (res.content) {
+                                returnData.content = res.content;//返回的数据列表
+                                //console.log(returnData);
+                            }
+                        }
+                        //调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
+                        //此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
+                        callback(returnData);
+                    });
+                }
+            }
+            let dataTable = $target.DataTable(param);
             return dataTable;
         };
 

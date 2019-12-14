@@ -1,6 +1,5 @@
 package ywm.oms.model;
 
-import ywm.library.shared.model.ArticleStatus;
 import ywm.library.shared.model.ArticleType;
 import ywm.library.shared.model.EidtorType;
 
@@ -85,6 +84,9 @@ public class Article extends ViewModel {
     private long likeNum;
 
 
+    private List<ArticleTag> tagDetail;
+
+
     public String getTitle() {
         return title;
     }
@@ -123,9 +125,6 @@ public class Article extends ViewModel {
 
     public void setType(ArticleType type) {
         this.type = type;
-        if(null!=type){
-            this.typeDesc = type.getDesc();
-        }
     }
 
     public List<String> getTags() {
@@ -190,10 +189,6 @@ public class Article extends ViewModel {
 
     public void setStatus(Integer status) {
         this.status = status;
-        ArticleStatus articleStatus = ArticleStatus.fromCode(status);
-        if (null != articleStatus) {
-            setStatusName(articleStatus.getDesc());
-        }
     }
 
     public String getStatusName() {
@@ -210,5 +205,13 @@ public class Article extends ViewModel {
 
     public void setTypeDesc(String typeDesc) {
         this.typeDesc = typeDesc;
+    }
+
+    public List<ArticleTag> getTagDetail() {
+        return tagDetail;
+    }
+
+    public void setTagDetail(List<ArticleTag> tagDetail) {
+        this.tagDetail = tagDetail;
     }
 }
