@@ -49,6 +49,7 @@ public class HandShakeInterceptor extends HttpSessionHandshakeInterceptor {
 
 
     private boolean valideWSToken(String key, String secret, String type) {
+        //todo
         return Strings.isNotBlank(key) && Strings.isNotBlank(secret);
     }
 
