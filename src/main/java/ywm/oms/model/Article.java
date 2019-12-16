@@ -61,7 +61,12 @@ public class Article extends ViewModel {
     /**
      * 是否置顶
      */
-    private boolean top = false;
+    private Boolean top = false;
+
+    /**
+     * 是否开启评论
+     */
+    private Boolean commentAllowed;
 
     /**
      * 编辑器
@@ -81,7 +86,7 @@ public class Article extends ViewModel {
     /**
      * 喜欢/点赞 数
      */
-    private long likeNum;
+    private long loveNum;
 
 
     private List<ArticleTag> tagDetail;
@@ -127,12 +132,36 @@ public class Article extends ViewModel {
         this.type = type;
     }
 
+    public String getTypeDesc() {
+        return typeDesc;
+    }
+
+    public void setTypeDesc(String typeDesc) {
+        this.typeDesc = typeDesc;
+    }
+
     public List<String> getTags() {
         return tags;
     }
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
     }
 
     public List<String> getComments() {
@@ -143,12 +172,20 @@ public class Article extends ViewModel {
         this.comments = comments;
     }
 
-    public boolean isTop() {
+    public Boolean getTop() {
         return top;
     }
 
-    public void setTop(boolean top) {
+    public void setTop(Boolean top) {
         this.top = top;
+    }
+
+    public Boolean getCommentAllowed() {
+        return commentAllowed;
+    }
+
+    public void setCommentAllowed(Boolean commentAllowed) {
+        this.commentAllowed = commentAllowed;
     }
 
     public EidtorType getEditorType() {
@@ -175,36 +212,12 @@ public class Article extends ViewModel {
         this.lookNum = lookNum;
     }
 
-    public long getLikeNum() {
-        return likeNum;
+    public long getLoveNum() {
+        return loveNum;
     }
 
-    public void setLikeNum(long likeNum) {
-        this.likeNum = likeNum;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public String getStatusName() {
-        return statusName;
-    }
-
-    public void setStatusName(String statusName) {
-        this.statusName = statusName;
-    }
-
-    public String getTypeDesc() {
-        return typeDesc;
-    }
-
-    public void setTypeDesc(String typeDesc) {
-        this.typeDesc = typeDesc;
+    public void setLoveNum(long loveNum) {
+        this.loveNum = loveNum;
     }
 
     public List<ArticleTag> getTagDetail() {
