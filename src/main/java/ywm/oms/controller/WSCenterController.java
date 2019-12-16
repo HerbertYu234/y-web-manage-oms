@@ -13,6 +13,8 @@ import java.util.Map;
 
 /**
  * Created by Herbert Yu on 2019-12-16 13:04
+ * 使用 WebSocket 向前端推送消息
+ * 有两种方式第二种基于注解的已被注释
  */
 @RequestMapping("/websocket")
 @RestController
@@ -20,9 +22,6 @@ public class WSCenterController extends BaseController {
 
     /**
      * 群发消息内容
-     *
-     * @param message
-     * @return
      */
     @RequestMapping(value = "/sendAll", method = RequestMethod.GET)
     public Map sendAllMessage(@RequestParam(required = true) String message) {
@@ -33,10 +32,6 @@ public class WSCenterController extends BaseController {
 
     /**
      * 指定会话ID发消息
-     *
-     * @param message 消息内容
-     * @param id      连接会话ID
-     * @return
      */
     @RequestMapping(value = "/sendOne", method = RequestMethod.GET)
     public Map sendOneMessage(@RequestParam(required = true) String message,
