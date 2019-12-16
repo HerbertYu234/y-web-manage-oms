@@ -605,12 +605,13 @@ const NS = "YWM";
         //     searching: false,
         //     ordering: false
         // });
+        //https://www.datatables.net/manual/
         const Table = function ($target, ops = {}) {
             let param = {
                 autoWidth: typeof ops.autoWidth != "undefined" ? ops.autoWidth : true, //是否自适应宽度
                 deferRender: true,
                 info: typeof ops.info != "undefined" ? ops.info : true, //是否显示页脚信息，DataTables插件左下角显示记录数 <Showing 0 to 0 of 0 entries>
-                lengthChange: typeof ops.lengthChange != "undefined" ? ops.lengthChange : true,
+                lengthChange: typeof ops.lengthChange != "undefined" ? ops.lengthChange : false,
                 ordering: false, //是否启动各个字段的排序功能
                 paging: typeof ops.paging != "undefined" ? ops.paging: true,
                 processing: false, //DataTables载入数据时，是否显示‘进度’提示
@@ -735,6 +736,7 @@ const NS = "YWM";
                 }
             }
             let dataTable = $target.DataTable(param);
+            console.log("dataTable",dataTable);
             return dataTable;
         };
 

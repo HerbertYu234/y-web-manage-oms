@@ -4,13 +4,17 @@
     <title>文章列表 </title>
 
     <!-- iCheck -->
-    <link  href="/js/lib/iCheck/skins/flat/green.css" rel="stylesheet">
+    <link href="/js/lib/iCheck/skins/flat/green.css" rel="stylesheet">
     <script src="/js/lib/iCheck/icheck.min.js"></script>
+
+    <!-- Switchery -->
+    <link href="/js/lib/switchery/dist/switchery.min.css" rel="stylesheet">
+    <script src="/js/lib/switchery/dist/switchery.min.js"></script>
 
     <!-- Datatables -->
     <script src="/js/lib/datatables.net/js/jquery.dataTables.js"></script>
 
-    <link  href="/js/lib/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="/js/lib/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <script src="/js/lib/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
     <script src="/js/lib/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
@@ -18,17 +22,17 @@
     <script src="/js/lib/datatables.net-buttons/js/buttons.html5.min.js"></script>
     <script src="/js/lib/datatables.net-buttons/js/buttons.print.min.js"></script>
 
-    <link  href="/js/lib/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="/js/lib/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
     <script src="/js/lib/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
 
-    <link  href="/js/lib/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="/js/lib/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <script src="/js/lib/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
 
-    <#--<script src="/js/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>-->
-    <#--<link  href="/js/lib/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">-->
-    <#--<script src="/js/lib/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>-->
+<#--<script src="/js/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>-->
+<#--<link  href="/js/lib/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">-->
+<#--<script src="/js/lib/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>-->
 
-    <link  href="/js/lib/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <link href="/js/lib/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <script src="/js/lib/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
 
     <script src="/js/lib/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
@@ -39,26 +43,26 @@
 <!-- page content -->
 <div class="right_col" role="main">
     <div class="">
-        <#--<div class="page-title">
-            <div class="title_left">
-                <h3>Tables
-                    <small>Some examples to get you started</small>
-                </h3>
-            </div>
+    <#--<div class="page-title">
+        <div class="title_left">
+            <h3>Tables
+                <small>Some examples to get you started</small>
+            </h3>
+        </div>
 
-            <div class="title_right">
-                <div class="col-md-5 col-sm-5   form-group pull-right top_search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                    </div>
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5   form-group pull-right top_search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                  <button class="btn btn-default" type="button">Go!</button>
+                </span>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="clearfix"></div>-->
+    <div class="clearfix"></div>-->
 
         <div class="row" style="display: block;">
             <div class="clearfix"></div>
@@ -105,7 +109,7 @@
 
                         <div class="fixed-table-toolbar">
                             <div class="bs-bars pull-left">
-                                <div class="btn-group hidden-xs" >
+                                <div class="btn-group hidden-xs">
                                     <a class="btn btn-success" title="发表文章" href="${wolf.context}/article/edit"> <i
                                             class="fa fa-pencil fa-fw"></i>
                                     </a>
@@ -122,7 +126,8 @@
                                 </div>
                             </div>
                             <div class="columns columns-right btn-group pull-right">
-                                <button id="btn-search-keyword" class="btn btn-dark" type="button" name="refresh" title="刷新"><i
+                                <button id="btn-search-keyword" class="btn btn-dark" type="button" name="refresh"
+                                        title="刷新"><i
                                         class="fa fa-refresh icon-refresh"></i>
                                 </button>
                             </div>
@@ -138,17 +143,20 @@
                                     <th>
                                         <input type="checkbox" id="check-all" class="flat">
                                     </th>
-                                    <th class="column-title">ID</th>
                                     <th class="column-title">标题</th>
-                                    <th class="column-title">更新时间</th>
                                     <th class="column-title">分类</th>
+                                    <th class="column-title">状态</th>
                                     <th class="column-title">Order</th>
                                     <th class="column-title">作者</th>
-                                    <th class="column-title">状态</th>
                                     <th class="column-title">是否置顶</th>
+                                    <th class="column-title">开启评论</th>
+                                    <th class="column-title">浏览</th>
+                                    <th class="column-title">评论</th>
+                                    <th class="column-title">喜欢</th>
+                                    <th class="column-title">更新时间</th>
                                     <th class="column-title no-link last"><span class="nobr">操作</span>
                                     </th>
-                                    <th class="bulk-actions" colspan="9">
+                                    <th class="bulk-actions" colspan="12">
                                         <a class="antoo" style="color:#fff; font-weight:500;">批量操作 ( <span
                                                 class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
                                     </th>
@@ -226,13 +234,15 @@
 
         //刷新
         $("#btn-search-keyword").click(function () {
-            table.api().draw();
-        })
+            table.draw();
+        });
+
+
     });
 
 
     function getTableActiveIds() {
-        return Array.prototype.slice.call(table.api().rows(".selected").ids()) ;
+        return Array.prototype.slice.call(table.api().rows(".selected").ids());
     }
 
 
@@ -282,66 +292,46 @@
             };
         }();*/
 
-        table = $('#datatable').dataTable({ //https://www.datatables.net/manual/
-            processing: false, //DataTables载入数据时，是否显示‘进度’提示
-            searching: false,
-            scrollX: false,
-            lengthChange: false,
-            language: {
-                emptyTable: "_empty table_"
-            },
+        table = new YWM.Table($('#datatable'),{
             rowId: "id",
             paging: true,
-            deferRender: true,
-            // aLengthMenu: [10, 20, 40, 60, 100], //更改显示记录数选项
             pageLength: 5, //默认显示的记录数
-            info: true, //是否显示页脚信息，DataTables插件左下角显示记录数
-            autoWidth: true, //是否自适应宽度
-            bScrollCollapse: true, //是否开启DataTables的高度自适应，当数据条数不够分页数据条数的时候，插件高度是否随数据条数而改变
             pagingType: "full_numbers", //详细分页组
-            bSort: false, //是否启动各个字段的排序功能
-            bFilter: false, //是否启动过滤、搜索功能
             bServerSide: true,//开启此模式后，你对datatables的每个操作 每页显示多少条记录、下一页、上一页、排序（表头）、搜索，这些都会传给服务器相应的值
-            ajax: function (data, callback, settings) {
-                let page = data.start / data.length;
+            serverPromise: function(params){
                 let keyword = $("#search-keyword").val();
-                let param = {
-                    page: page,
-                    size: data.length,
-                    ...keyword && {keyword:keyword}
-                };
-                YWM.Api.article.page(param).then(function (pageArticle) {
-                    //封装返回数据
-                    let returnData = {
-                        content : [],
-                        draw : data.draw,//这里直接自行返回了draw计数器,应该由后台返回
-                        recordsTotal: 0,
-                        recordsFiltered: 0,
-                    };
-                    if(pageArticle){
-                        returnData.recordsTotal = pageArticle.totalElements;//返回数据全部记录
-                        returnData.recordsFiltered = pageArticle.totalElements;//后台不实现过滤功能，每次查询均视作全部结果
-                        returnData.content = pageArticle.content;//返回的数据列表
-                        //console.log(returnData);
-                    }
-                    //调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
-                    //此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
-                    callback(returnData);
-                });
+                if(keyword){
+                    params.keyword = keyword;
+                }
+                return YWM.Api.article.page(params);
             },
-            createdRow: function ( row, data, index ) {
+            createdRow: function (row, data, index) {
                 // $(row).data("test","test-"+index); 没起效？
-                row.setAttribute("data-test","test-"+index);
+                row.setAttribute("data-test", "test-" + index);
                 // console.log("createdRow:",row, data, index);
             },
-            footerCallback: function(row, data, start, end, display){
-                console.log("footerCallback:",row, data, start, end, display);
+            footerCallback: function (row, data, start, end, display) {
+                console.log("footerCallback:", row, data, start, end, display);
             },
             drawCallback: function (settings) {
                 console.log('DataTables has redrawn the table', settings);
                 init_iCheck();
+                init_switchery(function () {
 
-                var startIndex = this.api().context[0]._iDisplayStart;//获取到本页开始的条数
+                    //是否置顶
+                    $(".js-switch.top").off("change").on('change', function () {
+                        var checked=  $(this).prop("checked");
+                        console.log(checked);
+                    });
+
+                    //是否开启评论
+                    $(".js-switch.comment").off("change").on('change', function () {
+                        var checked=  $(this).prop("checked");
+                        console.log(checked);
+                    })
+                });
+
+                // var startIndex = this.context[0]._iDisplayStart;//获取到本页开始的条数
                 // this.api().column(0).nodes().each(function (cell, i) {
                 //     //翻页序号连续
                 //     cell.innerHTML = startIndex + i + 1;
@@ -354,20 +344,29 @@
                         return "<input type='checkbox' class='flat' name='table_records'>";
                     }
                 },
-                {"data": "id"},
                 {"data": "title"},
+                {"data": "typeDesc"},
+                {"data": "statusName"},
+                {"data": null, "defaultContent": "todo"},
+                {"data": null, "defaultContent": "todo"},
+                {
+                    "data": "top", render: function (data, type, row, meta) {
+                        let active = data ? "checked='checked'" : "";
+                        return "<input type='checkbox' class='js-switch top' " + active + ">"
+                    }
+                },
+                {
+                    "data": "commentAllowed", render: function (data, type, row, meta) {
+                        let active = data ? "checked='checked'" : "";
+                        return "<input type='checkbox' class='js-switch comment' " + active + ">"
+                    }
+                },
+                {"data": "lookNum", "defaultContent": "-"},
+                {"data": "commitNum", "defaultContent": "-"},
+                {"data": "loveNum", "defaultContent": "-"},
                 {
                     "data": "updateTime", render: function (data, type, row, meta) {
                         return YWM.Util.formatDateTime(data);
-                    }
-                },
-                {"data": "typeDesc"},
-                {"data": null, "defaultContent": "todo"},
-                {"data": null, "defaultContent": "todo"},
-                {"data": "statusName"},
-                {
-                    "data": "top", render: function (data, type, row, meta) {
-                        return data ? "是" : "否";
                     }
                 },
                 {
@@ -379,6 +378,7 @@
                 }
             ]
         });
+
 
         /*$('#datatable-keytable').DataTable({
             keys: true

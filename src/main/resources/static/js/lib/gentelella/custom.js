@@ -194,14 +194,7 @@ if ($(".progress .progress-bar")[0]) {
 
 // Switchery
 $(document).ready(function() {
-    if ($(".js-switch")[0]) {
-        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-        elems.forEach(function (html) {
-            var switchery = new Switchery(html, {
-                color: '#26B99A'
-            });
-        });
-    }
+    init_switchery();
 });
 // /Switchery
 
@@ -212,6 +205,17 @@ $(document).ready(function() {
 });
 // /iCheck
 
+function init_switchery(cbk) {
+    if ($(".js-switch")[0]) {
+        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+        elems.forEach(function (html) {
+            var switchery = new Switchery(html, {
+                color: '#26B99A'
+            });
+        });
+    }
+    cbk && cbk()
+}
 
 function init_iCheck(){
     if ($("input.flat")[0]) {
