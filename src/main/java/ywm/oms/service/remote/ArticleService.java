@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import ywm.oms.model.Article;
-import ywm.oms.service.term.ArticleSearchTerm;
+import ywm.oms.service.term.ArticleTerm;
 
 /**
  * Created by Herbert Yu on 2019-11-17 13:33
@@ -43,13 +43,13 @@ public interface ArticleService {
      * 文章检索
      */
     @GetMapping("/search")
-    Page<Article> articleSearch(@Feigns.Param ArticleSearchTerm term, @Feigns.Param Pageable pageable);
+    Page<Article> articleSearch(@Feigns.Param ArticleTerm term, @Feigns.Param Pageable pageable);
 
     /**
      * 数量统计
      */
     @GetMapping("/count")
-    long articleCount(@Feigns.Param ArticleSearchTerm term);
+    long articleCount(@Feigns.Param ArticleTerm term);
 
 
     /**

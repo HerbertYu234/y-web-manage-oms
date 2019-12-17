@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by Herbert Yu on 2019-11-13 09:40
  */
-public class ArticleSearchTerm implements SearchTerm {
+public class ArticleTerm implements SearchTerm {
 
     /**
      * 关键字

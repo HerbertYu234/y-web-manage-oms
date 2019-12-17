@@ -15,7 +15,7 @@ import ywm.oms.model.Article;
 import ywm.oms.model.ArticleTag;
 import ywm.oms.service.remote.ArticleService;
 import ywm.oms.service.remote.ArticleTagService;
-import ywm.oms.service.term.ArticleSearchTerm;
+import ywm.oms.service.term.ArticleTerm;
 
 /**
  * Created by Herbert Yu on 2019-11-23 13:40
@@ -44,7 +44,7 @@ public class ArticleController extends BaseController {
     @GetMapping("/page")
     @ResponseBody
     public ResEntity page(@PageableDefault(size = 10, page = 0) Pageable pageable,
-                          ArticleSearchTerm term) {
+                          ArticleTerm term) {
         Page<Article> articles = articleService.articleSearch(term, pageable);
         return ResEntity.result(articles);
     }

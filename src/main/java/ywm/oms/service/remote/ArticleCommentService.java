@@ -2,20 +2,20 @@ package ywm.oms.service.remote;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.*;
-import ywm.oms.model.Comment;
+import ywm.oms.model.ArticleComment;
 
 /**
  * Created by Herbert Yu on 2019-11-17 13:33
  */
 //@FeignClient(value = "gateway", path = "person/test")
 @FeignClient(value = "blog", path = "/comment")
-public interface CommentService {
+public interface ArticleCommentService {
 
     /**
      * 评论保存
      */
     @PostMapping("/save")
-    Comment commentSave(@RequestBody Comment comment);
+    ArticleComment commentSave(@RequestBody ArticleComment comment);
 
 
     /**

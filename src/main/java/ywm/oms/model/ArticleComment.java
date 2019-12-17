@@ -7,7 +7,7 @@ import java.util.List;
  * Created by Herbert Yu on 2019-11-12 18:22
  * 评论、留言
  */
-public class Comment extends ViewModel {
+public class ArticleComment extends ViewModel {
 
     /**
      * 评论id
