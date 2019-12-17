@@ -213,7 +213,16 @@
 
         //批量删除
         $("#btn_batch_delete").click(function () {
-
+            let ids = getTableActiveIds();
+            if(!ids){
+                alert("请先选择待删除文章");
+                return;
+            }
+            if(confirm("确定要删除选中记录？")){
+                YWM.Api.article.batchDelete(ids).then(function () {
+                    window.location.reload();
+                })
+            }
         });
 
         //批量发布
@@ -242,7 +251,7 @@
 
 
     function getTableActiveIds() {
-        return Array.prototype.slice.call(table.api().rows(".selected").ids());
+        return Array.prototype.slice.call(table.rows(".selected").ids());
     }
 
 
@@ -320,14 +329,22 @@
 
                     //是否置顶
                     $(".js-switch.top").off("change").on('change', function () {
+                        var id = $(this).closest("tr").attr("id");
                         var checked=  $(this).prop("checked");
                         console.log(checked);
+                        YWM.Api.article.topAllowed(id,checked).then(function () {
+                            window.location.reload();
+                        });
                     });
 
                     //是否开启评论
                     $(".js-switch.comment").off("change").on('change', function () {
+                        var id = $(this).closest("tr").attr("id");
                         var checked=  $(this).prop("checked");
                         console.log(checked);
+                        YWM.Api.article.commentAllowed(id,checked).then(function () {
+                            window.location.reload();
+                        })
                     })
                 });
 

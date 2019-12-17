@@ -30,11 +30,17 @@ public class ArticleController extends BaseController {
     @Autowired
     private ArticleTagService articleTagService;
 
+    /**
+     * 文章列表
+     */
     @GetMapping("/list")
     public String list(Model model) {
         return "/article/list";
     }
 
+    /**
+     * 文章分页数据
+     */
     @GetMapping("/page")
     @ResponseBody
     public ResEntity page(@PageableDefault(size = 10, page = 0) Pageable pageable,
@@ -43,6 +49,9 @@ public class ArticleController extends BaseController {
         return ResEntity.result(articles);
     }
 
+    /**
+     * 文章编辑-富文本
+     */
     @GetMapping("/edit")
     public String edit(@RequestParam(value = "id", required = false) String id, Model model) {
         model.addAttribute("types", ArticleType.values());
@@ -58,6 +67,9 @@ public class ArticleController extends BaseController {
         return "/article/edit";
     }
 
+    /**
+     * 文章编辑-md
+     */
     @GetMapping("/edit_md")
     public String editMd(@RequestParam(value = "id", required = false) String id, Model model) {
         model.addAttribute("types", ArticleType.values());
@@ -73,28 +85,73 @@ public class ArticleController extends BaseController {
         return "/article/edit_md";
     }
 
-
+    /**
+     * 文章保存
+     */
     @PostMapping("/store")
     public String store(Article article) {
         articleService.articleSave(article);
         return "redirect:/article/list";
     }
 
+    /**
+     * 删除
+     */
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") String id) {
         articleService.articleRemove(id);
         return "redirect:/article/list";
     }
 
+    /**
+     * 批量删除
+     */
     @PostMapping("/delete")
     @ResponseBody
     public ResEntity batchDelete(@RequestParam String[] ids) {
         return ResEntity.result(articleService.articleRemove(ids));
     }
 
+    /**
+     * 是否发布状态变更
+     */
     @ResponseBody
     @PostMapping("/change/status/{status}")
     public ResEntity changeStatus(@PathVariable("status") Integer status, @RequestParam String[] ids) {
         return ResEntity.result(articleService.articleChangeStatus(status, ids));
+    }
+
+    /**
+     * 是否置顶
+     */
+    @PostMapping("/top/allowed/{id}")
+    @ResponseBody
+    public ResEntity isTop(@PathVariable("id") String id,@RequestParam Boolean top) {
+        if (null != top) {
+            Article article = articleService.articleDetail(id);
+            if (article != null) {
+                article.setTop(top);
+                articleService.articleSave(article);
+                return ResEntity.success();
+            }
+        }
+        return ResEntity.fail();
+    }
+
+    /**
+     * 是否开启评论
+     */
+    @PostMapping("/comment/allowed/{id}")
+    @ResponseBody
+    public ResEntity isComment(@PathVariable("id") String id,@RequestParam Boolean comment) {
+        if (null != comment) {
+            Article article = articleService.articleDetail(id);
+            if (article != null) {
+                article.setCommentAllowed(comment);
+                articleService.articleSave(article);
+                return ResEntity.success();
+            }
+        }
+        return ResEntity.fail();
     }
 }

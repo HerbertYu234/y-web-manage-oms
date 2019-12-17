@@ -59,7 +59,46 @@ YWM.Api = {
                     reject.apply(this, arguments);
                 })
             });
-        }
+        },
+
+        topAllowed: function (id,top) {
+            if (!id) {
+                return;
+            }
+            return new Promise(function (resolve, reject) {
+                $.post(wolf_context + "/article/top/allowed/" + id, "top=" + top, function (res) {
+                    if (res.success) {
+                        resolve.call(this, res.result);
+                    } else {
+                        reject.call(this, res.msg || "error");
+                    }
+                }).fail(function () {
+                    console.log("*** error!", arguments);
+                    reject.apply(this, arguments);
+                })
+            });
+        },
+
+        commentAllowed: function (id,comment) {
+            if (!id) {
+                return;
+            }
+
+            return new Promise(function (resolve, reject){
+                $.post(wolf_context + "/article/comment/allowed/" + id, "comment=" + comment, function (res) {
+                    if (res.success) {
+                        resolve.call(this, res.result);
+                    } else {
+                        reject.call(this, res.msg || "error");
+                    }
+                }).fail(function () {
+                    console.log("*** error!", arguments);
+                    reject.apply(this, arguments);
+                })
+            });
+
+        },
+
     },
     articleTag:{
         page: function (parmas = {}) {
