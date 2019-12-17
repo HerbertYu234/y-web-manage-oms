@@ -21,8 +21,8 @@
             <div class="col-md-12 col-sm-12  ">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>文章标签列表
-                            <small>Article Tag List</small>
+                        <h2>文章标签管理
+                            <small>Article Tag Manange</small>
                         </h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>

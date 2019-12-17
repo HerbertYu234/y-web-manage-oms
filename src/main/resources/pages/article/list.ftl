@@ -70,8 +70,8 @@
             <div class="col-md-12 col-sm-12  ">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>文章列表
-                            <small>Article List</small>
+                        <h2>文章管理
+                            <small>Article Manange</small>
                         </h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>

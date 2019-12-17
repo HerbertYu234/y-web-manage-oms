@@ -138,11 +138,23 @@
                             <li>
                                 <a href="${wolf.context}/"><i class="fa fa-home"></i> 首页</a>
                             </li>
-                            <li><a><i class="fa fa-edit"></i> 文章管理 <span class="fa fa-chevron-down"></span></a>
+                            <li><a><i class="fa fa-edit"></i>博客管理<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
-                                    <li><a href="${wolf.context}/article/list">文章列表</a></li>
-                                    <li><a href="${wolf.context}/article/type/list">分类列表</a></li>
-                                    <li><a href="${wolf.context}/article/tag/list">标签列表</a></li>
+                                    <li><a href="${wolf.context}/article/list">文章管理</a></li>
+                                    <li><a href="${wolf.context}/article/type/list">分类管理</a></li>
+                                    <li><a href="${wolf.context}/article/tag/list">标签管理</a></li>
+                                    <li><a href="${wolf.context}/article/comment/list">评论管理</a></li>
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-globe"></i> 网站管理<span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <#--<li><a href="/comments"><i class=""></i>评论管理</a></li>-->
+                                    <li><a href="/links"><i class=""></i>消息管理</a></li>
+                                    <li><a href="/links"><i class=""></i>友情链接</a></li>
+                                    <li><a href="/templates"><i class=""></i>模板管理</a></li>
+                                    <li><a href="/updates"><i class=""></i>更新日志</a></li>
+                                    <li><a href="/notices"><i class=""></i>公告管理</a></li>
+                                    <li><a href="/files"><i class=""></i>文件管理</a></li>
                                 </ul>
                             </li>
                             <li><a><i class="fa fa-desktop"></i> UI Elements <span
