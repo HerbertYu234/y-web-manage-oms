@@ -41,7 +41,7 @@ const NS = "YWM";
         }
 
         let Util = {
-            extend: function (destination) {
+            extend: function (destination, ...src) {
                 var property, j, source, len = arguments.length;
 
                 for (j = 1; j < len; j++) {
@@ -52,7 +52,7 @@ const NS = "YWM";
                 }
                 return destination;
             },
-            extendNotOverride: function (destination) { //已有的相同属性不覆盖
+            extendNotOverride: function (destination, ...src) { //已有的相同属性不覆盖
                 var property, j, source, len = arguments.length;
 
                 for (j = 1; j < len; j++) {
@@ -613,12 +613,12 @@ const NS = "YWM";
                 info: typeof ops.info != "undefined" ? ops.info : true, //是否显示页脚信息，DataTables插件左下角显示记录数 <Showing 0 to 0 of 0 entries>
                 lengthChange: typeof ops.lengthChange != "undefined" ? ops.lengthChange : false,
                 ordering: false, //是否启动各个字段的排序功能
-                paging: typeof ops.paging != "undefined" ? ops.paging: true,
+                paging: typeof ops.paging != "undefined" ? ops.paging : true,
                 processing: false, //DataTables载入数据时，是否显示‘进度’提示
                 // scrollX: true,
                 scrollY: true,
                 searching: false, //是否启动过滤、搜索功能
-                bServerSide: typeof ops.bServerSide!= "undefined"?ops.bServerSide: true,//开启此模式后，你对datatables的每个操作 每页显示多少条记录、下一页、上一页、排序（表头）、搜索，这些都会传给服务器相应的值
+                bServerSide: typeof ops.bServerSide != "undefined" ? ops.bServerSide : true,//开启此模式后，你对datatables的每个操作 每页显示多少条记录、下一页、上一页、排序（表头）、搜索，这些都会传给服务器相应的值
                 stateSave: false,//使用sessionStorage或localStorage保存datatable信息（pagination position, display length, filtering and sorting）
                 // renderer: "bootstrap",
                 sAjaxDataProp: ops.sAjaxDataProp || "content",
@@ -697,13 +697,13 @@ const NS = "YWM";
                 dom: ops.dom || '<"top"lf>rt<"bottom"ip><"clear">', //https://www.datatables.net/examples/basic_init/dom.html
             };
 
-            if(ops.data){
+            if (ops.data) {
                 param.data = ops.data;
                 param.bServerSide = false;
             }
 
-            if(param.bServerSide){
-                if(!ops.serverPromise){
+            if (param.bServerSide) {
+                if (!ops.serverPromise) {
                     console.error("服务端处理请指定serverPromise请求数据!");
                     return;
                 }
@@ -736,7 +736,7 @@ const NS = "YWM";
                 }
             }
             let dataTable = $target.DataTable(param);
-            console.log("dataTable",dataTable);
+            console.log("dataTable", dataTable);
             return dataTable;
         };
 
@@ -782,12 +782,113 @@ const NS = "YWM";
             }
         };
 
+        const _WebSocket = {
+            _delegate: null,
+            _initialized: false,
+            init: function (options) {
+                var _this = this;
+                if (!_this.isSupported()) {
+                    console.error('您的浏览器不支持WebSocket');
+                    return;
+                }
+                var op = Util.extend({
+                    callback: _this._defaultCbk,
+                    url: null,
+                    reconnect: false
+                }, options);
+                if (!op.url) {
+                    console.error("初始化WebSocket失败，无效的请求地址");
+                    return;
+                }
+                try {
+                    _this._delegate = new WebSocket(op.url);
+                } catch (error) {
+                    return;
+                }
+                _this._initialized = true;
+
+                //连接发生错误的回调方法
+                _this._delegate.onerror = function () {
+                    console.log("[ws onerror]与服务器连接失败...");
+                };
+
+                //连接成功建立的回调方法
+                _this._delegate.onopen = function (event) {
+                    console.log("[ws onopen]与服务器连接成功...");
+                };
+
+                //接收到消息的回调方法
+                _this._delegate.onmessage = function (event) {
+                    console.log("[ws onmessage]", event);
+                    op.callback(event.data);
+                };
+
+                //连接关闭的回调方法
+                _this._delegate.onclose = function () {
+                    _this._delegate._initialized = false;
+                    console.log("[ws onclose]已关闭当前链接");
+                    if (op.reconnect) {
+                        // 自动重连
+                        setTimeout(function () {
+                            _this.open(op);
+                        }, 5000);
+                    }
+                }
+            },
+            _defaultCbk: function (data) {
+                var _this = this;
+                if (typeof data == "string") {
+                    let msg = JSON.parse(data);
+                    console.log("Received data string", msg);
+                    if (msg.socketSessionId) {
+                        _this._delegate.sessionId = msg.socketSessionId;
+                    }
+                }
+
+                if (data instanceof ArrayBuffer) {
+                    console.log("Received data arraybuffer");
+                }
+
+                if (data instanceof Blob) {
+                    console.log("Received data blob");
+                }
+            },
+            open: function (options) {
+                var _this = this;
+                if (_this._initialized) {
+                    _this.close();
+                }
+                this.init(options);
+                //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+                window.onbeforeunload = function () { //also unload
+                    console.log("[ws onbeforeunload]窗口关闭了");
+                    _this.close();
+                }
+            },
+            isSupported: function () {
+                return typeof WebSocket != "undefined" && 'WebSocket' in window;
+            },
+            send: function (message) {
+                if (!this._delegate) {
+                    return;
+                }
+                this._delegate.send(message);
+            },
+            close: function () {
+                if (!this._delegate) {
+                    return;
+                }
+                this._delegate.close();
+            }
+        };
+
         exports.version = version;
         exports.author = author;
         exports.Util = Util;
         exports.Events = Events;
         exports.Table = Table;
         exports.Pager = Pager;
+        exports.WebSocket = _WebSocket;
 
         let oldNS = window[NS];
         exports.noConflict = function () {

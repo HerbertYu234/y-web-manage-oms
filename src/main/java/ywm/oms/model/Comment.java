@@ -1,6 +1,5 @@
 package ywm.oms.model;
 
-import ywm.library.shared.model.CommentType;
 
 import java.util.List;
 
@@ -10,16 +9,10 @@ import java.util.List;
  */
 public class Comment extends ViewModel {
 
-
-    /**
-     * 评论类型
-     */
-    private CommentType type;
-
     /**
      * 评论id
      */
-    private String target;
+    private String article;
 
 
     private String comment;
@@ -39,20 +32,12 @@ public class Comment extends ViewModel {
      */
     private List<String> images;
 
-    public CommentType getType() {
-        return type;
+    public String getArticle() {
+        return article;
     }
 
-    public void setType(CommentType type) {
-        this.type = type;
-    }
-
-    public String getTarget() {
-        return target;
-    }
-
-    public void setTarget(String target) {
-        this.target = target;
+    public void setArticle(String article) {
+        this.article = article;
     }
 
     public String getUser() {
