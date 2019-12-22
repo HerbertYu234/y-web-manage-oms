@@ -150,10 +150,9 @@
                                 <ul class="nav child_menu">
                                     <#--<li><a href="/comments"><i class=""></i>评论管理</a></li>-->
                                     <li><a href="${wolf.context}/notice/list"><i class=""></i>公告管理</a></li>
-                                    <li><a href="/links"><i class=""></i>友情链接</a></li>
+                                    <li><a href="${wolf.context}/notice/push"><i class=""></i>消息推送</a></li>
                                     <li><a href="/templates"><i class=""></i>模板管理</a></li>
                                     <li><a href="/updates"><i class=""></i>更新日志</a></li>
-                                    <li><a href="/notices"><i class=""></i>公告管理</a></li>
                                     <li><a href="/files"><i class=""></i>文件管理</a></li>
                                 </ul>
                             </li>

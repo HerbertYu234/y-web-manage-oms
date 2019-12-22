@@ -74,4 +74,9 @@ public class NoticeController extends BaseController {
         }
         return ResEntity.fail();
     }
+
+    @GetMapping("/push")
+    public String push(Model model){
+        return "/notice/push";
+    }
 }

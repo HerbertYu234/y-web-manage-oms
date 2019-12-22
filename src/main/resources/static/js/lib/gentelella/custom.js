@@ -214,18 +214,17 @@ function init_switchery(cbk) {
             });
         });
     }
-    cbk && cbk()
+    cbk && cbk();
 }
 
-function init_iCheck(){
+function init_iCheck(cbk){
     if ($("input.flat")[0]) {
-        $(document).ready(function () {
-            $("body").find('input.flat').iCheck({
-                checkboxClass: 'icheckbox_flat-green',
-                radioClass: 'iradio_flat-green'
-            });
+        $("body").find('input.flat').iCheck({
+            checkboxClass: 'icheckbox_flat-green',
+            radioClass: 'iradio_flat-green'
         });
     }
+    cbk && cbk();
 }
 
 // Table
