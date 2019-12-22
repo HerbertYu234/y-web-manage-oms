@@ -11,7 +11,7 @@ import ywm.oms.service.term.SysNoticeTerm;
 /**
  * Created by Herbert Yu on 2019-12-17 21:11
  */
-@FeignClient(value = "blog", path = "/sys/notice")
+@FeignClient(value = "sys", path = "/notice")
 public interface SysNoticeService {
 
     /**
@@ -24,7 +24,7 @@ public interface SysNoticeService {
      * 删除
      */
     @PostMapping("/remove")
-    boolean remove(@RequestParam String[] ids);
+    boolean remove(@RequestParam("ids") String[] ids);
 
     /**
      * 详情

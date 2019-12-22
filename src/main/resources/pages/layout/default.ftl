@@ -149,7 +149,7 @@
                             <li><a><i class="fa fa-globe"></i> 网站管理<span class="fa fa-chevron-down"></span></a>
                                 <ul class="nav child_menu">
                                     <#--<li><a href="/comments"><i class=""></i>评论管理</a></li>-->
-                                    <li><a href="/links"><i class=""></i>消息管理</a></li>
+                                    <li><a href="${wolf.context}/notice/list"><i class=""></i>公告管理</a></li>
                                     <li><a href="/links"><i class=""></i>友情链接</a></li>
                                     <li><a href="/templates"><i class=""></i>模板管理</a></li>
                                     <li><a href="/updates"><i class=""></i>更新日志</a></li>

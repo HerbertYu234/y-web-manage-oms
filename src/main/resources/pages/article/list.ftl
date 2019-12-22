@@ -214,7 +214,7 @@
         //批量删除
         $("#btn_batch_delete").click(function () {
             let ids = getTableActiveIds();
-            if(!ids){
+            if(!ids || ids.length < 1){
                 alert("请先选择待删除文章");
                 return;
             }

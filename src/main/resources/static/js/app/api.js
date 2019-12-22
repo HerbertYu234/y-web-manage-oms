@@ -61,7 +61,7 @@ YWM.Api = {
             });
         },
 
-        topAllowed: function (id,top) {
+        topAllowed: function (id, top) {
             if (!id) {
                 return;
             }
@@ -79,12 +79,12 @@ YWM.Api = {
             });
         },
 
-        commentAllowed: function (id,comment) {
+        commentAllowed: function (id, comment) {
             if (!id) {
                 return;
             }
 
-            return new Promise(function (resolve, reject){
+            return new Promise(function (resolve, reject) {
                 $.post(wolf_context + "/article/comment/allowed/" + id, "comment=" + comment, function (res) {
                     if (res.success) {
                         resolve.call(this, res.result);
@@ -100,7 +100,7 @@ YWM.Api = {
         },
 
     },
-    articleTag:{
+    articleTag: {
         page: function (parmas = {}) {
             parmas.v = Math.random();
 
@@ -137,7 +137,7 @@ YWM.Api = {
         },
         findById: function (id) {
             return new Promise(function (resolve, reject) {
-                $.get(wolf_context + "/article/tag/detail/"+id, {}, function (res) {
+                $.get(wolf_context + "/article/tag/detail/" + id, {}, function (res) {
                     if (res.success) {
                         resolve.call(this, res.result);
                     } else {
@@ -156,6 +156,90 @@ YWM.Api = {
         list: function () {
             return new Promise(function (resolve, reject) {
                 $.get(wolf_context + "/article/type/data", {}, function (res) {
+                    if (res.success) {
+                        resolve.call(this, res.result);
+                    } else {
+                        reject.call(this, res.msg || "error");
+                    }
+
+                }).fail(function () {
+                    console.log("*** error!", arguments);
+                    reject.apply(this, arguments);
+                })
+            });
+        }
+    },
+
+    notice: {
+        page: function (parmas = {}) {
+            parmas.v = Math.random();
+
+            return new Promise(function (resolve, reject) {
+                $.get(wolf_context + "/notice/page", parmas, function (res) {
+                    if (res.success) {
+                        resolve.call(this, res.result);
+                    } else {
+                        reject.call(this, res.msg || "error");
+                    }
+
+                }).fail(function () {
+                    console.log("*** error!", arguments);
+                    reject.apply(this, arguments);
+                })
+            });
+        },
+
+        batchDelete: function (ids = []) {
+            if (!ids) {
+                return;
+            }
+            return new Promise(function (resolve, reject) {
+                $.post(wolf_context + "/notice/delete", "ids=" + ids, function (res) {
+                    if (res.success) {
+                        resolve.call(this, res.result);
+                    } else {
+                        reject.call(this, res.msg || "error");
+                    }
+                }).fail(function () {
+                    console.log("*** error!", arguments);
+                    reject.apply(this, arguments);
+                })
+            });
+        },
+
+        store: function (params) {
+            return new Promise(function (resolve, reject) {
+                $.post(wolf_context + "/notice/store", params, function (res) {
+                    if (res.success) {
+                        resolve.call(this, res.result);
+                    } else {
+                        reject.call(this, res.msg || "error");
+                    }
+
+                }).fail(function () {
+                    console.log("*** error!", arguments);
+                    reject.apply(this, arguments);
+                })
+            });
+        },
+        findById: function (id) {
+            return new Promise(function (resolve, reject) {
+                $.get(wolf_context + "/notice/find/" + id, {}, function (res) {
+                    if (res.success) {
+                        resolve.call(this, res.result);
+                    } else {
+                        reject.call(this, res.msg || "error");
+                    }
+
+                }).fail(function () {
+                    console.log("*** error!", arguments);
+                    reject.apply(this, arguments);
+                })
+            });
+        },
+        playable: function (id, playable) {
+            return new Promise(function (resolve, reject) {
+                $.get(wolf_context + "/notice/playable/" + id, {playable: playable}, function (res) {
                     if (res.success) {
                         resolve.call(this, res.result);
                     } else {
