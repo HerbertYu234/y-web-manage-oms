@@ -33,7 +33,7 @@
                     <div class="x_content">
                         <div class="">
                             <ul class="to_do" id="onlineUsers">
-                                <#if online??>
+                                <#if online?? && online?size gt 0 >
                                     <li>
                                         <p><input type="checkbox" value="@all" class="flat"> 所有人（@all）</p>
                                     </li>
