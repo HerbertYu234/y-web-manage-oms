@@ -22,7 +22,7 @@
             <div class="col-md-4">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>当前在线(10人)
+                        <h2>当前在线(${(online?size)!0}人)
                             <small>from websocket</small>
                         </h2>
                     <#--<ul class="nav navbar-right panel_toolbox">
