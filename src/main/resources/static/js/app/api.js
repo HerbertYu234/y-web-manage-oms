@@ -251,6 +251,22 @@ YWM.Api = {
                     reject.apply(this, arguments);
                 })
             });
+        },
+
+        publish: function (msg, users) {
+            return new Promise(function (resolve, reject) {
+                $.post(wolf_context + "/websocket/push", {message: msg, users: users}, function (res) {
+                    if (res.success) {
+                        resolve.call(this, res.result);
+                    } else {
+                        reject.call(this, res.msg || "error");
+                    }
+
+                }).fail(function () {
+                    console.log("*** error!", arguments);
+                    reject.apply(this, arguments);
+                })
+            });
         }
     }
 }

@@ -200,9 +200,9 @@ $(document).ready(function() {
 
 
 // iCheck
-$(document).ready(function() {
-    init_iCheck();
-});
+// $(document).ready(function() {
+//     init_iCheck();
+// });
 // /iCheck
 
 function init_switchery(cbk) {

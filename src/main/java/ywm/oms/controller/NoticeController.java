@@ -11,6 +11,7 @@ import ywm.library.shared.model.ResEntity;
 import ywm.oms.model.SysNotice;
 import ywm.oms.service.remote.SysNoticeService;
 import ywm.oms.service.term.SysNoticeTerm;
+import ywm.oms.websocket.WolfWebSocketHandler;
 
 /**
  * Created by Herbert Yu on 2019-12-18 17:37
@@ -77,6 +78,7 @@ public class NoticeController extends BaseController {
 
     @GetMapping("/push")
     public String push(Model model){
+        model.addAttribute("online", WolfWebSocketHandler.getWebSocketManager());
         return "/notice/push";
     }
 }

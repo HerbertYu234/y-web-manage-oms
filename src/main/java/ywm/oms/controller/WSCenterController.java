@@ -1,12 +1,14 @@
 package ywm.oms.controller;
 
 import com.wolf.lang.helper.Maps;
+import com.wolf.lang.helper.Strings;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ywm.oms.websocket.WolfWebSocketHandler;
 
+import java.util.Arrays;
 import java.util.Map;
 
 //import ywm.oms.websocket.WSServer;
@@ -20,23 +22,26 @@ import java.util.Map;
 @RestController
 public class WSCenterController extends BaseController {
 
-    /**
-     * 群发消息内容
-     */
-    @RequestMapping(value = "/sendAll", method = RequestMethod.GET)
-    public Map sendAllMessage(@RequestParam(required = true) String message) {
-        WolfWebSocketHandler.sendMessage(Maps.of("payload", message));
-        return Maps.of("success", true);
-    }
 
+    private static final String ALL = "@all";
 
     /**
      * 指定会话ID发消息
      */
-    @RequestMapping(value = "/sendOne", method = RequestMethod.GET)
+    @RequestMapping(value = "/push", method = RequestMethod.POST)
     public Map sendOneMessage(@RequestParam(required = true) String message,
-                              @RequestParam(required = true) String id) {
-        WolfWebSocketHandler.sendMessage(Maps.of("payload", message), id);
+                              @RequestParam(required = true) String users) {
+        if (Strings.equals(ALL, users)) {
+            WolfWebSocketHandler.sendMessage(Maps.of("payload", message));
+        } else {
+            String[] receivers = Strings.split(users, "|");
+//            String[] receivers = users.split("|");
+            if (null != receivers && receivers.length > 0) {
+                Arrays.stream(receivers).forEach(user -> {
+                    WolfWebSocketHandler.sendMessage(Maps.of("payload", message), user);
+                });
+            }
+        }
         return Maps.of("success", true);
     }
 }

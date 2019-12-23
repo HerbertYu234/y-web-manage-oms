@@ -33,15 +33,17 @@
                     <div class="x_content">
                         <div class="">
                             <ul class="to_do" id="onlineUsers">
-                                <li>
-                                    <p><input type="checkbox" value="all" class="flat"> 所有人（@all）</p>
-                                </li>
-                                <li>
-                                    <p><input type="checkbox" class="flat"> Schedule meeting with new client </p>
-                                </li>
-                                <li>
-                                    <p><input type="checkbox" class="flat"> Create email address for new intern</p>
-                                </li>
+                                <#if online??>
+                                    <li>
+                                        <p><input type="checkbox" value="@all" class="flat"> 所有人（@all）</p>
+                                    </li>
+                                    <#list online?keys as key>
+                                    <li>
+                                        <p><input type="checkbox" value="${key}" class="flat"> ${key} </p>
+                                    </li>
+                                    </#list>
+                                </#if>
+
                             </ul>
                         </div>
                     </div>
@@ -70,14 +72,15 @@
                             <div class="item form-group">
                                 <label class="control-label col-md-2 col-sm-2 ">消息内容:</label>
                                 <div class="col-md-10 col-sm-10 ">
-                                    <textarea rows="5" class="resizable_textarea form-control"></textarea>
+                                    <textarea rows="5" name="content"
+                                              class="resizable_textarea form-control"></textarea>
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <div class="col-md-12 col-sm-12 offset-md-6">
                                 <#--<button class="btn btn-primary" type="button">Cancel</button>-->
                                 <#--<button class="btn btn-primary" type="reset">Reset</button>-->
-                                    <button type="button" class="btn btn-success">Submit</button>
+                                    <button type="button" id="btn_publish" class="btn btn-success">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -116,6 +119,31 @@
 
         });
 
+        //发送
+        $("#btn_publish").click(function () {
+            let msg = $("textarea[name='content']").val();
+            let users = [];
+
+            if (!msg) {
+                alert("请输入消息内容");
+                return;
+            }
+
+            if (!users || users.length < 1) {
+                alert("请选择推送人员！");
+                return;
+            }
+
+            $("#onlineUsers input[type='checkbox']:checked").each(function (i, element) {
+                users.push($(this).val());
+            });
+            users = users.includes("@all") ? "@all" : users.join("|");
+
+            YWM.Api.notice.publish(msg, users).then(function () {
+                alert("发送成功！");
+                window.location.reload();
+            })
+        });
 
     });
 
