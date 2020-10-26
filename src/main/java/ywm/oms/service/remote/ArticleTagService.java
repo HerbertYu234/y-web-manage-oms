@@ -10,8 +10,8 @@ import ywm.oms.model.ArticleTag;
 /**
  * Created by Herbert Yu on 2019-11-17 13:33
  */
-//@FeignClient(value = "gateway", path = "person/test")
-@FeignClient(value = "blog", path = "/tag")
+@FeignClient(value = "gateway", path = "blog/tag")
+//@FeignClient(value = "blog", path = "/tag")
 public interface ArticleTagService {
 
     /**

@@ -116,6 +116,17 @@ const NS = "YWM";
                 return date.setHours(23, 59, 59, 999)
             },
 
+            /**
+             * 将 Date/时间戳 转化为指定格式的String:
+             * 年(y)可以用 1-4 个占位符、月(M)、日(d)、12小时(h)、24小时(H)、分(m)、秒(s)、毫秒(S)只能用 1 个占位符(是 1-3 位的数字)、周(E)、季度(q)可以用 1-2 个占位符
+             * formatDateTime(date,"yyyy-MM-dd hh:mm:ss:S")==> 2006-07-02 08:09:04:423
+             * formatDateTime(date,"yyyy-MM-dd E HH:mm:ss") ==> 2009-03-10 二 20:09:04
+             * formatDateTime(date,"yyyy-MM-dd EE hh:mm:ss") ==> 2009-03-10 周二 08:09:04
+             * formatDateTime(date,"yyyy-MM-dd EEE hh:mm:ss") ==> 2009-03-10 星期二 08:09:04
+             * formatDateTime(date,"yyyy-M-d h:m:s.S") ==> 2006-7-2 8:9:4.18
+             * formatDateTime(date,"yyyy年MM月dd日 HH:mm:ss") ==> 2018年12月04日 13:56:04
+             * formatDateTime(date,"HH时mm分ss秒") ==> 14时01分17秒
+             */
             formatDateTime: function (date, fmt) {
 
                 if (!(date instanceof Date)) {
@@ -325,41 +336,15 @@ const NS = "YWM";
 
             IdcardValid: function (code, strict) {
                 let city = {
-                    11: "北京",
-                    12: "天津",
-                    13: "河北",
-                    14: "山西",
-                    15: "内蒙古",
-                    21: "辽宁",
-                    22: "吉林",
-                    23: "黑龙江 ",
-                    31: "上海",
-                    32: "江苏",
-                    33: "浙江",
-                    34: "安徽",
-                    35: "福建",
-                    36: "江西",
-                    37: "山东",
-                    41: "河南",
-                    42: "湖北 ",
-                    43: "湖南",
-                    44: "广东",
-                    45: "广西",
-                    46: "海南",
-                    50: "重庆",
-                    51: "四川",
-                    52: "贵州",
-                    53: "云南",
-                    54: "西藏 ",
-                    61: "陕西",
-                    62: "甘肃",
-                    63: "青海",
-                    64: "宁夏",
-                    65: "新疆",
-                    71: "台湾",
-                    81: "香港",
-                    82: "澳门",
-                    91: "国外 "
+                    11: "北京", 12: "天津", 13: "河北", 14: "山西",
+                    15: "内蒙古", 21: "辽宁", 22: "吉林", 23: "黑龙江 ",
+                    31: "上海", 32: "江苏", 33: "浙江", 34: "安徽",
+                    35: "福建", 36: "江西", 37: "山东", 41: "河南",
+                    42: "湖北 ", 43: "湖南", 44: "广东", 45: "广西",
+                    46: "海南", 50: "重庆", 51: "四川", 52: "贵州",
+                    53: "云南", 54: "西藏 ", 61: "陕西", 62: "甘肃",
+                    63: "青海", 64: "宁夏", 65: "新疆", 71: "台湾",
+                    81: "香港", 82: "澳门", 91: "国外 "
                 };
                 let tip = "success";
                 let pass = true;
@@ -450,7 +435,52 @@ const NS = "YWM";
                     }
                 };
             },
+
+            uuidByTime: function () {
+                var d = new Date().getTime();
+                var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                    var r = (d + Math.random() * 16) % 16 | 0;
+                    d = Math.floor(d / 16);
+                    return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+                });
+                return uuid;
+            },
+
+            uuid: function (len, radix) {
+                len = len || 32;
+                radix = radix || 16;
+
+                var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+                var uuid = [], i;
+                radix = radix || chars.length;
+
+                if (len) {
+                    // Compact form
+                    for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random() * radix];
+                } else {
+                    // rfc4122, version 4 form
+                    var r;
+
+                    // rfc4122 requires these characters
+                    uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+                    uuid[14] = '4';
+
+                    // Fill in random data. At i==19 set the high bits of clock sequence as
+                    // per rfc4122, sec. 4.1.5
+                    for (i = 0; i < 36; i++) {
+                        if (!uuid[i]) {
+                            r = 0 | Math.random() * 16;
+                            uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
+                        }
+                    }
+                }
+
+                return uuid.join('');
+            },
+
+
         };
+
 
         let Events = {
             /* @method on(type: String, fn: Function, context?: Object): this
@@ -606,7 +636,7 @@ const NS = "YWM";
                     return this;
                 }
 
-                var event = extend({}, data, {
+                var event = Util.extend({}, data, {
                     type: type,
                     target: this,
                     sourceTarget: data && data.sourceTarget || this
@@ -986,6 +1016,11 @@ const NS = "YWM";
             }
         };
 
+
+        const _Log = function () {
+            console.log.apply(console, arguments);
+        };
+
         exports.version = version;
         exports.author = author;
         exports.Util = Util;
@@ -993,6 +1028,7 @@ const NS = "YWM";
         exports.Table = Table;
         exports.Pager = Pager;
         exports.WebSocket = _WebSocket;
+        exports.Log = _Log;
 
         let oldNS = window[NS];
         exports.noConflict = function () {
@@ -1004,3 +1040,13 @@ const NS = "YWM";
 
     })
 )
+
+
+const formToObject = form =>
+    Array.from(new FormData(form))
+        .reduce(
+            (acc, [key, value]) => ({
+                ...acc,
+                [key]: value}),
+            {}
+        );

@@ -11,7 +11,8 @@ import ywm.oms.service.term.SysNoticeTerm;
 /**
  * Created by Herbert Yu on 2019-12-17 21:11
  */
-@FeignClient(value = "sys", path = "/notice")
+@FeignClient(value = "gateway", path = "sys/notice")
+//@FeignClient(value = "sys", path = "/notice")
 public interface SysNoticeService {
 
     /**

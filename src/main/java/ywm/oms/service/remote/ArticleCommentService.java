@@ -7,8 +7,8 @@ import ywm.oms.model.ArticleComment;
 /**
  * Created by Herbert Yu on 2019-11-17 13:33
  */
-//@FeignClient(value = "gateway", path = "person/test")
-@FeignClient(value = "blog", path = "/comment")
+@FeignClient(value = "gateway", path = "blog/comment")
+//@FeignClient(value = "blog", path = "/comment")
 public interface ArticleCommentService {
 
     /**
