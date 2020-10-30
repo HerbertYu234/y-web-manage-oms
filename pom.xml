@@ -27,6 +27,11 @@
             <artifactId>cloudlet</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.yhb.wolf</groupId>
+            <artifactId>wolf-security-mongo</artifactId>
+        </dependency>
+
         <!-- WebSocket -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
